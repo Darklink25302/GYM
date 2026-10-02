@@ -367,3 +367,4 @@ FodyWeavers.xsd
 **/obj/
 *.user
 *.suo 
+**/conexion.local.json

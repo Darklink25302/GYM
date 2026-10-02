@@ -27,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="conexion.local.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -35,7 +38,6 @@
 
   <ItemGroup>
     <Folder Include="My Project\Datos\" />
-    <Folder Include="Datos\" />
     <Folder Include="Modelos\" />
     <Folder Include="Formularios\" />
     <Folder Include="Seguridad\" />

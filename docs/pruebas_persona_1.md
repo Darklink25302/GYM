@@ -2,11 +2,11 @@
 
 ## Comprobaciones realizadas
 
-- Compilación de las clases y formularios nuevos.
+- Restauración desde una copia limpia con los paquetes instalados y compilación completa: 0 errores y 0 advertencias.
 - 39 pruebas de datos usando una instancia temporal de MariaDB y el script `database/fragmentos/01_seguridad.sql`.
-- 33 comprobaciones de formularios y permisos.
+- 47 comprobaciones de formularios, permisos, inicio y cierre de sesión: 5 de arranque y salida, 9 de login y preparación inicial, y 33 de usuarios y roles.
 - Acceso, altas, edición, desbloqueo, cambio de contraseña y listado usando una cuenta de MariaDB con permisos SELECT, INSERT, UPDATE y DELETE.
-- El inicio de sesión con el primer administrador fue comprobado en el equipo del proyecto.
+- En el equipo del proyecto se confirmó el inicio de sesión del primer administrador y la creación de otra cuenta desde Usuarios.
 
 Las pruebas de datos se hicieron con cuentas ficticias en una base temporal. No se utilizaron las credenciales ni los datos de la base local del proyecto.
 
@@ -25,10 +25,12 @@ Las pruebas de datos se hicieron con cuentas ficticias en una base temporal. No 
 11. Verificar el permiso del administrador en la base, aunque el rol de la sesión local se altere.
 12. Impedir que el administrador inhabilite su propia cuenta o se quite el rol.
 13. Limpiar la selección para crear un usuario nuevo y cargar los datos al elegir una fila.
+14. Iniciar la aplicación desde FrmLogin, cargar sus recursos y limpiar la sesión al cerrar la ventana principal o salir del login.
+15. Impedir el cierre mientras se completa una operación en curso.
 
-## Prueba manual pendiente en el equipo
+## Prueba manual completa para repetir en el equipo
 
-1. Ejecutar con F5 e iniciar sesión como administrador.
+1. Ejecutar con F5. La aplicación debe abrir FrmLogin; iniciar sesión como administrador.
 2. Abrir **Administrar usuarios**.
 3. Pulsar **Nuevo**, crear un usuario de prueba con rol Recepcionista y una contraseña de al menos 12 caracteres.
 4. Cerrar sesión y comprobar el acceso con ese usuario. No debe aparecer la administración de usuarios.

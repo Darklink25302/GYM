@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class FrmLogin
     Inherits Form
 
     Private components As System.ComponentModel.IContainer
@@ -113,7 +113,7 @@ Partial Class Form1
         lblEstado.Size = New Size(374, 60)
         lblEstado.TabIndex = 4
         ' 
-        ' Form1
+        ' FrmLogin
         ' 
         AcceptButton = btnEntrar
         AutoScaleDimensions = New SizeF(96F, 96F)
@@ -123,7 +123,7 @@ Partial Class Form1
         Font = New Font("Segoe UI", 10F)
         FormBorderStyle = FormBorderStyle.FixedDialog
         MaximizeBox = False
-        Name = "Form1"
+        Name = "FrmLogin"
         StartPosition = FormStartPosition.CenterScreen
         Text = "GymControl - Iniciar sesión"
         pnlContenido.ResumeLayout(False)

@@ -3,14 +3,14 @@ Option Infer On
 
 Imports System.Threading.Tasks
 
-Public Class Form1
+Public Class FrmLogin
     Private procesando As Boolean
 
     Public Sub New()
         InitializeComponent()
     End Sub
 
-    Private Async Sub Form1_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+    Private Async Sub FrmLogin_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Sesion.Limpiar()
         EstablecerOcupado(True)
         Try
@@ -98,7 +98,7 @@ Public Class Form1
         btnPrimerAdministrador.Enabled = Not ocupado
     End Sub
 
-    Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+    Private Sub FrmLogin_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If procesando Then
             e.Cancel = True
         Else

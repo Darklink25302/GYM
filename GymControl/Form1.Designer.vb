@@ -17,92 +17,118 @@ Partial Class Form1
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.pnlContenido = New Panel()
-        Me.lblTitulo = New Label()
-        Me.lblUsuario = New Label()
-        Me.txtUsuario = New TextBox()
-        Me.lblContrasena = New Label()
-        Me.txtContrasena = New TextBox()
-        Me.btnEntrar = New Button()
-        Me.btnPrimerAdministrador = New Button()
-        Me.lblEstado = New Label()
-        Me.pnlContenido.SuspendLayout()
-        Me.SuspendLayout()
-
-        Me.pnlContenido.Name = "pnlContenido"
-        Me.pnlContenido.Dock = DockStyle.Fill
-        Me.pnlContenido.Controls.Add(Me.lblTitulo)
-        Me.pnlContenido.Controls.Add(Me.lblUsuario)
-        Me.pnlContenido.Controls.Add(Me.txtUsuario)
-        Me.pnlContenido.Controls.Add(Me.lblContrasena)
-        Me.pnlContenido.Controls.Add(Me.txtContrasena)
-        Me.pnlContenido.Controls.Add(Me.btnEntrar)
-        Me.pnlContenido.Controls.Add(Me.btnPrimerAdministrador)
-        Me.pnlContenido.Controls.Add(Me.lblEstado)
-
-        Me.lblTitulo.Name = "lblTitulo"
-        Me.lblTitulo.Location = New Point(28, 28)
-        Me.lblTitulo.Size = New Size(374, 32)
-        Me.lblTitulo.Text = "Bienvenido a GymControl"
-        Me.lblTitulo.Font = New Font("Segoe UI", 16.0F, FontStyle.Bold)
-
-        Me.lblUsuario.Name = "lblUsuario"
-        Me.lblUsuario.Location = New Point(28, 82)
-        Me.lblUsuario.Size = New Size(374, 20)
-        Me.lblUsuario.Text = "Usuario"
-
-        Me.txtUsuario.Name = "txtUsuario"
-        Me.txtUsuario.Location = New Point(28, 106)
-        Me.txtUsuario.Size = New Size(374, 27)
-        Me.txtUsuario.MaxLength = 50
-        Me.txtUsuario.TabIndex = 0
-
-        Me.lblContrasena.Name = "lblContrasena"
-        Me.lblContrasena.Location = New Point(28, 147)
-        Me.lblContrasena.Size = New Size(374, 20)
-        Me.lblContrasena.Text = "Contraseña"
-
-        Me.txtContrasena.Name = "txtContrasena"
-        Me.txtContrasena.Location = New Point(28, 171)
-        Me.txtContrasena.Size = New Size(374, 27)
-        Me.txtContrasena.UseSystemPasswordChar = True
-        Me.txtContrasena.TabIndex = 1
-
-        Me.btnEntrar.Name = "btnEntrar"
-        Me.btnEntrar.Location = New Point(28, 217)
-        Me.btnEntrar.Size = New Size(374, 36)
-        Me.btnEntrar.Text = "Entrar"
-        Me.btnEntrar.UseVisualStyleBackColor = True
-        Me.btnEntrar.TabIndex = 2
-
-        Me.btnPrimerAdministrador.Name = "btnPrimerAdministrador"
-        Me.btnPrimerAdministrador.Location = New Point(28, 260)
-        Me.btnPrimerAdministrador.Size = New Size(374, 36)
-        Me.btnPrimerAdministrador.Text = "Crear primer administrador"
-        Me.btnPrimerAdministrador.UseVisualStyleBackColor = True
-        Me.btnPrimerAdministrador.Visible = False
-        Me.btnPrimerAdministrador.TabIndex = 3
-
-        Me.lblEstado.Name = "lblEstado"
-        Me.lblEstado.Location = New Point(28, 304)
-        Me.lblEstado.Size = New Size(374, 60)
-        Me.lblEstado.Text = ""
-        Me.lblEstado.ForeColor = Color.Firebrick
-
-        Me.AutoScaleDimensions = New SizeF(96.0F, 96.0F)
-        Me.AutoScaleMode = AutoScaleMode.Dpi
-        Me.ClientSize = New Size(430, 370)
-        Me.Font = New Font("Segoe UI", 10.0F)
-        Me.FormBorderStyle = FormBorderStyle.FixedDialog
-        Me.MaximizeBox = False
-        Me.StartPosition = FormStartPosition.CenterScreen
-        Me.Text = "GymControl - Iniciar sesión"
-        Me.Controls.Add(Me.pnlContenido)
-        Me.AcceptButton = Me.btnEntrar
-        Me.pnlContenido.ResumeLayout(False)
-        Me.pnlContenido.PerformLayout()
-        Me.ResumeLayout(False)
+        pnlContenido = New Panel()
+        lblTitulo = New Label()
+        lblUsuario = New Label()
+        txtUsuario = New TextBox()
+        lblContrasena = New Label()
+        txtContrasena = New TextBox()
+        btnEntrar = New Button()
+        btnPrimerAdministrador = New Button()
+        lblEstado = New Label()
+        pnlContenido.SuspendLayout()
+        SuspendLayout()
+        ' 
+        ' pnlContenido
+        ' 
+        pnlContenido.Controls.Add(lblTitulo)
+        pnlContenido.Controls.Add(lblUsuario)
+        pnlContenido.Controls.Add(txtUsuario)
+        pnlContenido.Controls.Add(lblContrasena)
+        pnlContenido.Controls.Add(txtContrasena)
+        pnlContenido.Controls.Add(btnEntrar)
+        pnlContenido.Controls.Add(btnPrimerAdministrador)
+        pnlContenido.Controls.Add(lblEstado)
+        pnlContenido.Dock = DockStyle.Fill
+        pnlContenido.Location = New Point(0, 0)
+        pnlContenido.Name = "pnlContenido"
+        pnlContenido.Size = New Size(482, 453)
+        pnlContenido.TabIndex = 0
+        ' 
+        ' lblTitulo
+        ' 
+        lblTitulo.Font = New Font("Segoe UI", 16F, FontStyle.Bold)
+        lblTitulo.Location = New Point(28, 28)
+        lblTitulo.Name = "lblTitulo"
+        lblTitulo.Size = New Size(374, 32)
+        lblTitulo.TabIndex = 0
+        lblTitulo.Text = "Bienvenido a GymControl"
+        ' 
+        ' lblUsuario
+        ' 
+        lblUsuario.Location = New Point(28, 82)
+        lblUsuario.Name = "lblUsuario"
+        lblUsuario.Size = New Size(374, 20)
+        lblUsuario.TabIndex = 1
+        lblUsuario.Text = "Usuario"
+        ' 
+        ' txtUsuario
+        ' 
+        txtUsuario.Location = New Point(28, 106)
+        txtUsuario.MaxLength = 50
+        txtUsuario.Name = "txtUsuario"
+        txtUsuario.Size = New Size(374, 25)
+        txtUsuario.TabIndex = 0
+        ' 
+        ' lblContrasena
+        ' 
+        lblContrasena.Location = New Point(28, 147)
+        lblContrasena.Name = "lblContrasena"
+        lblContrasena.Size = New Size(374, 20)
+        lblContrasena.TabIndex = 2
+        lblContrasena.Text = "Contraseña"
+        ' 
+        ' txtContrasena
+        ' 
+        txtContrasena.Location = New Point(28, 171)
+        txtContrasena.Name = "txtContrasena"
+        txtContrasena.Size = New Size(374, 25)
+        txtContrasena.TabIndex = 1
+        txtContrasena.UseSystemPasswordChar = True
+        ' 
+        ' btnEntrar
+        ' 
+        btnEntrar.Location = New Point(28, 217)
+        btnEntrar.Name = "btnEntrar"
+        btnEntrar.Size = New Size(374, 36)
+        btnEntrar.TabIndex = 2
+        btnEntrar.Text = "Entrar"
+        btnEntrar.UseVisualStyleBackColor = True
+        ' 
+        ' btnPrimerAdministrador
+        ' 
+        btnPrimerAdministrador.Location = New Point(28, 260)
+        btnPrimerAdministrador.Name = "btnPrimerAdministrador"
+        btnPrimerAdministrador.Size = New Size(374, 36)
+        btnPrimerAdministrador.TabIndex = 3
+        btnPrimerAdministrador.Text = "Crear primer administrador"
+        btnPrimerAdministrador.UseVisualStyleBackColor = True
+        btnPrimerAdministrador.Visible = False
+        ' 
+        ' lblEstado
+        ' 
+        lblEstado.ForeColor = Color.Firebrick
+        lblEstado.Location = New Point(28, 304)
+        lblEstado.Name = "lblEstado"
+        lblEstado.Size = New Size(374, 60)
+        lblEstado.TabIndex = 4
+        ' 
+        ' Form1
+        ' 
+        AcceptButton = btnEntrar
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
+        ClientSize = New Size(482, 453)
+        Controls.Add(pnlContenido)
+        Font = New Font("Segoe UI", 10F)
+        FormBorderStyle = FormBorderStyle.FixedDialog
+        MaximizeBox = False
+        Name = "Form1"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "GymControl - Iniciar sesión"
+        pnlContenido.ResumeLayout(False)
+        pnlContenido.PerformLayout()
+        ResumeLayout(False)
     End Sub
 
     Friend WithEvents pnlContenido As Panel

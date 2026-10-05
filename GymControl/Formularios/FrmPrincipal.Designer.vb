@@ -22,6 +22,7 @@ Partial Class FrmPrincipal
         Me.lblBienvenida = New Label()
         Me.lblRol = New Label()
         Me.btnCerrarSesion = New Button()
+        Me.btnUsuarios = New Button()
         Me.pnlContenido.SuspendLayout()
         Me.SuspendLayout()
 
@@ -30,6 +31,7 @@ Partial Class FrmPrincipal
         Me.pnlContenido.Controls.Add(Me.lblBienvenida)
         Me.pnlContenido.Controls.Add(Me.lblRol)
         Me.pnlContenido.Controls.Add(Me.btnCerrarSesion)
+        Me.pnlContenido.Controls.Add(Me.btnUsuarios)
 
         Me.lblBienvenida.Name = "lblBienvenida"
         Me.lblBienvenida.Location = New Point(32, 32)
@@ -43,15 +45,23 @@ Partial Class FrmPrincipal
         Me.lblRol.Text = ""
 
         Me.btnCerrarSesion.Name = "btnCerrarSesion"
-        Me.btnCerrarSesion.Location = New Point(32, 157)
+        Me.btnCerrarSesion.Location = New Point(32, 211)
         Me.btnCerrarSesion.Size = New Size(140, 36)
         Me.btnCerrarSesion.Text = "Cerrar sesión"
         Me.btnCerrarSesion.UseVisualStyleBackColor = True
         Me.btnCerrarSesion.TabIndex = 0
 
+        Me.btnUsuarios.Name = "btnUsuarios"
+        Me.btnUsuarios.Location = New Point(32, 157)
+        Me.btnUsuarios.Size = New Size(240, 36)
+        Me.btnUsuarios.Text = "Administrar usuarios"
+        Me.btnUsuarios.UseVisualStyleBackColor = True
+        Me.btnUsuarios.Visible = False
+        Me.btnUsuarios.TabIndex = 0
+
         Me.AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         Me.AutoScaleMode = AutoScaleMode.Dpi
-        Me.ClientSize = New Size(560, 260)
+        Me.ClientSize = New Size(560, 290)
         Me.Font = New Font("Segoe UI", 10.0F)
         Me.FormBorderStyle = FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
@@ -68,4 +78,5 @@ Partial Class FrmPrincipal
     Friend WithEvents lblBienvenida As Label
     Friend WithEvents lblRol As Label
     Friend WithEvents btnCerrarSesion As Button
+    Friend WithEvents btnUsuarios As Button
 End Class

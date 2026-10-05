@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frInstructores
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class frmInstructores
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,24 +20,24 @@ Partial Class frInstructores
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Label1 = New Label()
-        TxtNombre = New TextBox()
+        txtNombre = New TextBox()
         Label2 = New Label()
-        TextBox2 = New TextBox()
+        txtApellido = New TextBox()
         Lb1Especialidad = New Label()
-        TxtEspecialidad = New TextBox()
+        txtEspecialidad = New TextBox()
         Label3 = New Label()
-        lb1Telefono = New TextBox()
+        txtTelefono = New TextBox()
         Lb1Email = New Label()
-        TxtEmail = New TextBox()
-        ChkActivo = New CheckBox()
+        txtEmail = New TextBox()
+        chkActivo = New CheckBox()
         dgvInstructores = New DataGridView()
-        btnNuevo = New Button()
         btnEditar = New Button()
         btnInactivar = New Button()
         btnGuardar = New Button()
+        btnNuevo = New Button()
         CType(dgvInstructores, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -50,12 +50,12 @@ Partial Class frInstructores
         Label1.TabIndex = 0
         Label1.Text = "Nombre"
         ' 
-        ' TxtNombre
+        ' txtNombre
         ' 
-        TxtNombre.Location = New Point(207, 47)
-        TxtNombre.Name = "TxtNombre"
-        TxtNombre.Size = New Size(100, 23)
-        TxtNombre.TabIndex = 1
+        txtNombre.Location = New Point(207, 47)
+        txtNombre.Name = "txtNombre"
+        txtNombre.Size = New Size(100, 23)
+        txtNombre.TabIndex = 1
         ' 
         ' Label2
         ' 
@@ -66,12 +66,12 @@ Partial Class frInstructores
         Label2.TabIndex = 2
         Label2.Text = "Apellido"
         ' 
-        ' TextBox2
+        ' txtApellido
         ' 
-        TextBox2.Location = New Point(409, 50)
-        TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(100, 23)
-        TextBox2.TabIndex = 3
+        txtApellido.Location = New Point(409, 50)
+        txtApellido.Name = "txtApellido"
+        txtApellido.Size = New Size(100, 23)
+        txtApellido.TabIndex = 3
         ' 
         ' Lb1Especialidad
         ' 
@@ -82,12 +82,12 @@ Partial Class frInstructores
         Lb1Especialidad.TabIndex = 4
         Lb1Especialidad.Text = "Especialidad"
         ' 
-        ' TxtEspecialidad
+        ' txtEspecialidad
         ' 
-        TxtEspecialidad.Location = New Point(210, 113)
-        TxtEspecialidad.Name = "TxtEspecialidad"
-        TxtEspecialidad.Size = New Size(100, 23)
-        TxtEspecialidad.TabIndex = 5
+        txtEspecialidad.Location = New Point(210, 113)
+        txtEspecialidad.Name = "txtEspecialidad"
+        txtEspecialidad.Size = New Size(100, 23)
+        txtEspecialidad.TabIndex = 5
         ' 
         ' Label3
         ' 
@@ -98,12 +98,12 @@ Partial Class frInstructores
         Label3.TabIndex = 6
         Label3.Text = "Telefono"
         ' 
-        ' lb1Telefono
+        ' txtTelefono
         ' 
-        lb1Telefono.Location = New Point(409, 114)
-        lb1Telefono.Name = "lb1Telefono"
-        lb1Telefono.Size = New Size(100, 23)
-        lb1Telefono.TabIndex = 7
+        txtTelefono.Location = New Point(409, 114)
+        txtTelefono.Name = "txtTelefono"
+        txtTelefono.Size = New Size(100, 23)
+        txtTelefono.TabIndex = 7
         ' 
         ' Lb1Email
         ' 
@@ -114,22 +114,22 @@ Partial Class frInstructores
         Lb1Email.TabIndex = 8
         Lb1Email.Text = "Email"
         ' 
-        ' TxtEmail
+        ' txtEmail
         ' 
-        TxtEmail.Location = New Point(210, 170)
-        TxtEmail.Name = "TxtEmail"
-        TxtEmail.Size = New Size(100, 23)
-        TxtEmail.TabIndex = 9
+        txtEmail.Location = New Point(210, 170)
+        txtEmail.Name = "txtEmail"
+        txtEmail.Size = New Size(100, 23)
+        txtEmail.TabIndex = 9
         ' 
-        ' ChkActivo
+        ' chkActivo
         ' 
-        ChkActivo.AutoSize = True
-        ChkActivo.Location = New Point(409, 174)
-        ChkActivo.Name = "ChkActivo"
-        ChkActivo.Size = New Size(60, 19)
-        ChkActivo.TabIndex = 10
-        ChkActivo.Text = "Activo"
-        ChkActivo.UseVisualStyleBackColor = True
+        chkActivo.AutoSize = True
+        chkActivo.Location = New Point(409, 174)
+        chkActivo.Name = "chkActivo"
+        chkActivo.Size = New Size(60, 19)
+        chkActivo.TabIndex = 10
+        chkActivo.Text = "Activo"
+        chkActivo.UseVisualStyleBackColor = True
         ' 
         ' dgvInstructores
         ' 
@@ -139,18 +139,9 @@ Partial Class frInstructores
         dgvInstructores.Size = New Size(739, 79)
         dgvInstructores.TabIndex = 12
         ' 
-        ' btnNuevo
-        ' 
-        btnNuevo.Location = New Point(409, 199)
-        btnNuevo.Name = "btnNuevo"
-        btnNuevo.Size = New Size(75, 23)
-        btnNuevo.TabIndex = 13
-        btnNuevo.Text = "Nuevo"
-        btnNuevo.UseVisualStyleBackColor = True
-        ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(566, 199)
+        btnEditar.Location = New Point(302, 218)
         btnEditar.Name = "btnEditar"
         btnEditar.Size = New Size(75, 23)
         btnEditar.TabIndex = 14
@@ -159,7 +150,7 @@ Partial Class frInstructores
         ' 
         ' btnInactivar
         ' 
-        btnInactivar.Location = New Point(663, 199)
+        btnInactivar.Location = New Point(409, 218)
         btnInactivar.Name = "btnInactivar"
         btnInactivar.Size = New Size(75, 23)
         btnInactivar.TabIndex = 15
@@ -168,35 +159,44 @@ Partial Class frInstructores
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(490, 199)
+        btnGuardar.Location = New Point(207, 218)
         btnGuardar.Name = "btnGuardar"
         btnGuardar.Size = New Size(75, 23)
         btnGuardar.TabIndex = 16
         btnGuardar.Text = "Guardar"
         btnGuardar.UseVisualStyleBackColor = True
         ' 
-        ' frInstructores
+        ' btnNuevo
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        btnNuevo.Location = New Point(132, 218)
+        btnNuevo.Name = "btnNuevo"
+        btnNuevo.Size = New Size(75, 23)
+        btnNuevo.TabIndex = 17
+        btnNuevo.Text = "Nuevo"
+        btnNuevo.UseVisualStyleBackColor = True
+        ' 
+        ' frmInstructores
+        ' 
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(btnNuevo)
         Controls.Add(btnGuardar)
         Controls.Add(btnInactivar)
         Controls.Add(btnEditar)
-        Controls.Add(btnNuevo)
         Controls.Add(dgvInstructores)
-        Controls.Add(ChkActivo)
-        Controls.Add(TxtEmail)
+        Controls.Add(chkActivo)
+        Controls.Add(txtEmail)
         Controls.Add(Lb1Email)
-        Controls.Add(lb1Telefono)
+        Controls.Add(txtTelefono)
         Controls.Add(Label3)
-        Controls.Add(TxtEspecialidad)
+        Controls.Add(txtEspecialidad)
         Controls.Add(Lb1Especialidad)
-        Controls.Add(TextBox2)
+        Controls.Add(txtApellido)
         Controls.Add(Label2)
-        Controls.Add(TxtNombre)
+        Controls.Add(txtNombre)
         Controls.Add(Label1)
-        Name = "frInstructores"
+        Name = "frmInstructores"
         Text = "frInstructores"
         CType(dgvInstructores, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -204,19 +204,20 @@ Partial Class frInstructores
     End Sub
 
     Friend WithEvents Label1 As Label
-    Friend WithEvents TxtNombre As TextBox
+    Friend WithEvents txtNombre As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtApellido As TextBox
     Friend WithEvents Lb1Especialidad As Label
-    Friend WithEvents TxtEspecialidad As TextBox
+    Friend WithEvents txtEspecialidad As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents lb1Telefono As TextBox
+    Friend WithEvents txtTelefono As TextBox
     Friend WithEvents Lb1Email As Label
-    Friend WithEvents TxtEmail As TextBox
-    Friend WithEvents ChkActivo As CheckBox
+    Friend WithEvents txtEmail As TextBox
+    Friend WithEvents chkActivo As CheckBox
     Friend WithEvents dgvInstructores As DataGridView
-    Friend WithEvents btnNuevo As Button
     Friend WithEvents btnEditar As Button
     Friend WithEvents btnInactivar As Button
     Friend WithEvents btnGuardar As Button
+    Friend WithEvents btnNuevo As Button
+
 End Class

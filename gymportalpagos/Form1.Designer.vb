@@ -22,10 +22,29 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
+        GroupBox1 = New GroupBox()
+        SuspendLayout()
+        ' 
+        ' GroupBox1
+        ' 
+        GroupBox1.Location = New Point(12, 12)
+        GroupBox1.Name = "GroupBox1"
+        GroupBox1.Size = New Size(250, 125)
+        GroupBox1.TabIndex = 0
+        GroupBox1.TabStop = False
+        GroupBox1.Text = "GroupBox1"
+        ' 
+        ' Form1
+        ' 
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(GroupBox1)
+        Name = "Form1"
         Text = "Form1"
+        ResumeLayout(False)
     End Sub
+
+    Friend WithEvents GroupBox1 As GroupBox
 
 End Class

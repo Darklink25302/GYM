@@ -159,7 +159,7 @@ Partial Class frmInstructores
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(207, 218)
+        btnGuardar.Location = New Point(213, 218)
         btnGuardar.Name = "btnGuardar"
         btnGuardar.Size = New Size(75, 23)
         btnGuardar.TabIndex = 16

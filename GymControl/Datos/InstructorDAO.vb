@@ -1,36 +1,36 @@
 ﻿Imports MySqlConnector
-Imports System.IO
-Imports System.Text.Json
 
 Public Class InstructorDAO
 
-    ' Método para obtener la cadena de conexión desde el archivo JSON
-    Private Shared Function ObtenerCadenaConexion() As String
-        Try
-            ' Asegúrate de que el archivo se llame conexion.json (sin .ejemplo)
-            Dim ruta As String = Path.Combine(Application.StartupPath, "conexion.json")
-            If Not File.Exists(ruta) Then
-                ruta = Path.Combine(Application.StartupPath, "conexion.ejemplo.json")
+    Private Shared Sub Validar(instructor As Instructor)
+        If instructor Is Nothing Then Throw New ArgumentException("Faltan los datos del instructor.")
+        instructor.Nombre = If(instructor.Nombre, "").Trim()
+        instructor.Apellido = If(instructor.Apellido, "").Trim()
+        instructor.Especialidad = If(instructor.Especialidad, "").Trim()
+        instructor.Telefono = If(instructor.Telefono, "").Trim()
+        instructor.Email = If(instructor.Email, "").Trim()
+        If instructor.Nombre = "" OrElse instructor.Apellido = "" Then
+            Throw New ArgumentException("Nombre y apellido son obligatorios.")
+        End If
+        If instructor.Nombre.Length > 100 OrElse instructor.Apellido.Length > 100 OrElse
+           instructor.Especialidad.Length > 100 OrElse instructor.Telefono.Length > 30 OrElse
+           instructor.Email.Length > 150 Then
+            Throw New ArgumentException("Uno de los campos supera la longitud permitida.")
+        End If
+        If instructor.Email <> "" Then
+            Dim direccion As System.Net.Mail.MailAddress = Nothing
+            If Not System.Net.Mail.MailAddress.TryCreate(instructor.Email, direccion) OrElse
+               direccion.Address <> instructor.Email Then
+                Throw New ArgumentException("El correo no tiene un formato válido.")
             End If
-
-            Dim json As String = File.ReadAllText(ruta)
-            Dim config = JsonSerializer.Deserialize(Of Dictionary(Of String, Object))(json)
-
-            Dim servidor As String = config("Servidor").ToString()
-            Dim puerto As String = config("Puerto").ToString()
-            Dim baseDatos As String = config("BaseDatos").ToString()
-            Dim usuario As String = config("Usuario").ToString()
-            Dim clave As String = config("Clave").ToString()
-
-            Return $"Server={servidor};Port={puerto};Database={baseDatos};Uid={usuario};Pwd={clave};"
-        Catch ex As Exception
-            Throw New Exception("Error al leer la configuración de conexión: " & ex.Message)
-        End Try
-    End Function
+        End If
+    End Sub
 
     ' 1. ALTA: Insertar un nuevo instructor
     Public Shared Function Insertar(instructor As Instructor) As Boolean
-        Using conn As New MySqlConnection(ObtenerCadenaConexion())
+        ExigirAdministrador()
+        Validar(instructor)
+        Using conn = ConexionBD.CrearConexion()
             Try
                 conn.Open()
                 Dim query As String = "INSERT INTO instructores (Nombre, Apellido, Especialidad, Telefono, Email, Activo) " &
@@ -52,8 +52,9 @@ Public Class InstructorDAO
 
     ' 2. CONSULTA: Obtener todos los instructores
     Public Shared Function ObtenerTodos() As List(Of Instructor)
+        ExigirAdministrador()
         Dim lista As New List(Of Instructor)
-        Using conn As New MySqlConnection(ObtenerCadenaConexion())
+        Using conn = ConexionBD.CrearConexion()
             Try
                 conn.Open()
                 Dim query As String = "SELECT * FROM instructores ORDER BY Apellido, Nombre"
@@ -81,11 +82,14 @@ Public Class InstructorDAO
 
     ' 3. ACTUALIZACIÓN: Modificar un instructor existente
     Public Shared Function Actualizar(instructor As Instructor) As Boolean
-        Using conn As New MySqlConnection(ObtenerCadenaConexion())
+        ExigirAdministrador()
+        Validar(instructor)
+        If instructor.IdInstructor <= 0 Then Throw New ArgumentException("Selecciona un instructor.")
+        Using conn = ConexionBD.CrearConexion()
             Try
                 conn.Open()
                 Dim query As String = "UPDATE instructores SET Nombre=@Nombre, Apellido=@Apellido, Especialidad=@Especialidad, " &
-                                      "Telefono=@Telefono, Email=@Email WHERE IdInstructor=@IdInstructor"
+                                      "Telefono=@Telefono, Email=@Email, Activo=@Activo WHERE IdInstructor=@IdInstructor"
                 Using cmd As New MySqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@IdInstructor", instructor.IdInstructor)
                     cmd.Parameters.AddWithValue("@Nombre", instructor.Nombre)
@@ -93,6 +97,7 @@ Public Class InstructorDAO
                     cmd.Parameters.AddWithValue("@Especialidad", instructor.Especialidad)
                     cmd.Parameters.AddWithValue("@Telefono", instructor.Telefono)
                     cmd.Parameters.AddWithValue("@Email", instructor.Email)
+                    cmd.Parameters.AddWithValue("@Activo", instructor.Activo)
                     Return cmd.ExecuteNonQuery() > 0
                 End Using
             Catch ex As Exception
@@ -103,7 +108,9 @@ Public Class InstructorDAO
 
     ' 4. INACTIVACIÓN: Cambiar Activo a False (no borrar)
     Public Shared Function Inactivar(idInstructor As Integer) As Boolean
-        Using conn As New MySqlConnection(ObtenerCadenaConexion())
+        ExigirAdministrador()
+        If idInstructor <= 0 Then Throw New ArgumentException("Selecciona un instructor.")
+        Using conn = ConexionBD.CrearConexion()
             Try
                 conn.Open()
                 Dim query As String = "UPDATE instructores SET Activo = 0 WHERE IdInstructor = @IdInstructor"

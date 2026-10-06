@@ -6,6 +6,7 @@
     Public Property DiaSemana As String
     Public Property HoraInicio As TimeSpan
     Public Property HoraFin As TimeSpan
+    Public Property Activo As Boolean = True
 
     ' Propiedades extra para mostrar en pantalla (no se guardan en BD)
     Public Property NombreInstructor As String

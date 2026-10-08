@@ -1,0 +1,4 @@
+﻿-- El fragmento de la persona 4 está ahora en la ubicación acordada:
+-- database/fragmentos/04_instructores_horarios.sql
+-- Datos ficticios opcionales: database/fragmentos/04_datos_prueba.sql
+-- Ejecutar los archivos de database; este archivo solo indica la nueva ubicación.

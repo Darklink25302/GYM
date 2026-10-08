@@ -41,9 +41,26 @@ Las pruebas de datos se hicieron con cuentas ficticias en una base temporal. No 
 9. Seleccionar esa cuenta, desmarcar **Activo** y pulsar **Guardar**. Verificar que ya no puede entrar. Marcar Activo y guardar para reactivarla.
 10. Repetir la comprobación de acceso y permisos para Instructor y Socio cuando existan sus registros asociados.
 
+## Integración del menú
+
+- Ramas incorporadas en la copia local: socios/membresías e instructores/horarios.
+- El Administrador tiene ocho opciones; Recepcionista tiene Socios y Membresías; Instructor tiene Mis horarios. El portal del Socio sigue pendiente.
+- Antes de abrir cada pantalla, se comprueba en la base que la cuenta siga activa, desbloqueada y con el mismo rol. Un cambio de estado o rol invalida la sesión al intentar abrir otro módulo.
+- Al vincular una cuenta, Usuarios rechaza un ID de socio o instructor que no exista.
+- Los fragmentos 01, 02 y 04 y el script 05 se ejecutaron correctamente en una base temporal. El fragmento 02 incorpora la relación usuarios-socios; el 05 incorpora usuarios-instructores.
+- Pasaron 64 comprobaciones de login, opciones por rol, vínculos y permisos de entrada. Estas pruebas no equivalen a probar todas las operaciones internas de los módulos de los compañeros.
+
+## Comprobación manual de la integración
+
+1. Preparar las tablas siguiendo el orden del README, conservando la configuración local.
+2. Entrar como Administrador y abrir Usuarios, Socios, Tipos de membresía, Membresías, Instructores, Actividades, Salas y Horarios. Cerrar cada pantalla para regresar al menú.
+3. Registrar un socio y un instructor y vincular sus IDs a las cuentas correspondientes desde Usuarios.
+4. Entrar como Recepcionista: comprobar que solo aparecen Socios y Membresías.
+5. Entrar como Instructor: comprobar que aparece Mis horarios y que la consulta corresponde a su vínculo.
+6. Cerrar sesión y verificar el regreso al login.
+
 ## Integración pendiente
 
-- Conectar desde la ventana principal los módulos de los otros integrantes según los permisos de cada rol.
-- Acordar y agregar las claves foráneas de `usuarios.id_socio` y `usuarios.id_instructor` cuando estén disponibles las tablas correspondientes.
-- Verificar el proyecto desde un clon actualizado con la configuración local de un compañero.
-- Revisar e integrar los cambios en `main`.
+- Conectar pagos posteriores y portal cuando la Persona 3 publique esos formularios.
+- Corregir y probar las operaciones pendientes de cada módulo con sus responsables.
+- Repetir el recorrido completo desde un clon actualizado y revisar la integración final en main.

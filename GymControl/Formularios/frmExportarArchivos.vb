@@ -39,7 +39,8 @@
                         generador.Generar(CInt(nudAnios.Value), New DataTable(), dialog.FileName)
 
                     ElseIf rdbInformeMensual.Checked Then
-                        MessageBox.Show("Aquí llamaremos a PdfInformeMensual (R08) pronto.")
+                        Dim generadorPdf As New InformeMensualPDF()
+                        generadorPdf.Generar(cmbMes.SelectedIndex + 1, CInt(nudAnios.Value), dialog.FileName)
                     End If
 
                     MessageBox.Show("Reporte generado con éxito en: " & dialog.FileName, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -58,6 +59,10 @@
                 End Try
             End If
         End Using
+
+    End Sub
+
+    Private Sub nudAnio_Click(sender As Object, e As EventArgs) Handles nudAnio.Click
 
     End Sub
 End Class

@@ -28,7 +28,7 @@ Partial Class frmExportarArchivos
         chkIncluirAlDia = New CheckBox()
         Label1 = New Label()
         cmbMes = New ComboBox()
-        Label2 = New Label()
+        nudAnio = New Label()
         nudAnios = New NumericUpDown()
         btnGenerar = New Button()
         chkAbrirAlTerminar = New CheckBox()
@@ -94,14 +94,14 @@ Partial Class frmExportarArchivos
         cmbMes.Size = New Size(121, 23)
         cmbMes.TabIndex = 5
         ' 
-        ' Label2
+        ' nudAnio
         ' 
-        Label2.AutoSize = True
-        Label2.Location = New Point(366, 185)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(29, 15)
-        Label2.TabIndex = 6
-        Label2.Text = "Año"
+        nudAnio.AutoSize = True
+        nudAnio.Location = New Point(366, 185)
+        nudAnio.Name = "nudAnio"
+        nudAnio.Size = New Size(29, 15)
+        nudAnio.TabIndex = 6
+        nudAnio.Text = "Año"
         ' 
         ' nudAnios
         ' 
@@ -140,7 +140,7 @@ Partial Class frmExportarArchivos
         Controls.Add(chkAbrirAlTerminar)
         Controls.Add(btnGenerar)
         Controls.Add(nudAnios)
-        Controls.Add(Label2)
+        Controls.Add(nudAnio)
         Controls.Add(cmbMes)
         Controls.Add(Label1)
         Controls.Add(chkIncluirAlDia)
@@ -160,7 +160,7 @@ Partial Class frmExportarArchivos
     Friend WithEvents chkIncluirAlDia As CheckBox
     Friend WithEvents Label1 As Label
     Friend WithEvents cmbMes As ComboBox
-    Friend WithEvents Label2 As Label
+    Friend WithEvents nudAnio As Label
     Friend WithEvents nudAnios As NumericUpDown
     Friend WithEvents btnGenerar As Button
     Friend WithEvents chkAbrirAlTerminar As CheckBox

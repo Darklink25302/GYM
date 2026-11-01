@@ -29,6 +29,7 @@ Partial Class FrmPrincipal
         btnActividades = New Button()
         btnSalas = New Button()
         btnHorarios = New Button()
+        btnReportes = New Button()
         pnlContenido.SuspendLayout()
         SuspendLayout()
 
@@ -49,14 +50,14 @@ Partial Class FrmPrincipal
         lblRol.Size = New Size(552, 28)
 
         lblAviso.Name = "lblAviso"
-        lblAviso.Location = New Point(32, 352)
+        lblAviso.Location = New Point(32, 400)
         lblAviso.Size = New Size(552, 42)
 
         btnCerrarSesion.Name = "btnCerrarSesion"
-        btnCerrarSesion.Location = New Point(32, 410)
+        btnCerrarSesion.Location = New Point(32, 468)
         btnCerrarSesion.Size = New Size(180, 38)
         btnCerrarSesion.Text = "Cerrar sesión"
-        btnCerrarSesion.TabIndex = 8
+        btnCerrarSesion.TabIndex = 9
         btnCerrarSesion.UseVisualStyleBackColor = True
 
         btnUsuarios.Name = "btnUsuarios"
@@ -131,9 +132,18 @@ Partial Class FrmPrincipal
         btnHorarios.UseVisualStyleBackColor = True
         pnlContenido.Controls.Add(btnHorarios)
 
+        btnReportes.Name = "btnReportes"
+        btnReportes.Location = New Point(32, 344)
+        btnReportes.Size = New Size(552, 38)
+        btnReportes.Text = "Reportes"
+        btnReportes.Visible = False
+        btnReportes.TabIndex = 8
+        btnReportes.UseVisualStyleBackColor = True
+        pnlContenido.Controls.Add(btnReportes)
+
         AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         AutoScaleMode = AutoScaleMode.Dpi
-        ClientSize = New Size(616, 480)
+        ClientSize = New Size(616, 540)
         Font = New Font("Segoe UI", 10.0F)
         FormBorderStyle = FormBorderStyle.FixedDialog
         MaximizeBox = False
@@ -158,4 +168,5 @@ Partial Class FrmPrincipal
     Friend WithEvents btnActividades As Button
     Friend WithEvents btnSalas As Button
     Friend WithEvents btnHorarios As Button
+    Friend WithEvents btnReportes As Button
 End Class

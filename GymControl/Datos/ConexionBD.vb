@@ -5,14 +5,30 @@ Imports MySqlConnector
 Public Class ConexionBD
 
     Public Shared Function CrearConexion() As MySqlConnection
+        Return LeerConexion("conexion.local.json")
+    End Function
+
+    Public Shared Function CrearConexionReportes() As MySqlConnection
+        Dim conexion = LeerConexion("conexion.reportes.local.json")
+        Dim opciones As New MySqlConnectionStringBuilder(conexion.ConnectionString)
+
+        If opciones.UserID <> "gym_reportes" Then
+            conexion.Dispose()
+            Throw New InvalidOperationException("Los reportes deben usar el usuario gym_reportes.")
+        End If
+
+        Return conexion
+    End Function
+
+    Private Shared Function LeerConexion(nombreArchivo As String) As MySqlConnection
         Dim ruta = Path.Combine(
             AppContext.BaseDirectory,
-            "conexion.local.json"
+            nombreArchivo
         )
 
         If Not File.Exists(ruta) Then
             Throw New FileNotFoundException(
-                "Falta el archivo conexion.local.json."
+                "Falta el archivo " & nombreArchivo & "."
             )
         End If
 

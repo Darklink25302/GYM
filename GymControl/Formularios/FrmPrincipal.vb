@@ -22,6 +22,8 @@ Public Class FrmPrincipal
         btnSalas.Visible = Sesion.Rol = "Administrador"
         btnHorarios.Visible = Sesion.Rol = "Administrador" OrElse Sesion.Rol = "Instructor"
         btnHorarios.Text = If(Sesion.Rol = "Instructor", "Mis horarios", "Horarios")
+        btnReportes.Visible = Sesion.Rol = "Administrador" OrElse Sesion.Rol = "Recepcionista" OrElse
+                              Sesion.Rol = "Instructor" OrElse Sesion.Rol = "Socio"
         lblAviso.Text = ""
         If Sesion.Rol = "Socio" Then
             lblAviso.Text = "El portal del socio todavía está pendiente."
@@ -128,6 +130,18 @@ Public Class FrmPrincipal
                 Throw New ArgumentException("Un administrador debe vincular tu cuenta con un instructor.")
             End If
             Using formulario As New frmHorarios()
+                formulario.ShowDialog(Me)
+            End Using
+            ActualizarMenu()
+        Catch ex As Exception
+            MostrarError(ex)
+        End Try
+    End Sub
+
+    Private Sub btnReportes_Click(sender As Object, e As EventArgs) Handles btnReportes.Click
+        Try
+            PermisosMenu.Exigir("Administrador", "Recepcionista", "Instructor", "Socio")
+            Using formulario As New frmCentroReportes()
                 formulario.ShowDialog(Me)
             End Using
             ActualizarMenu()

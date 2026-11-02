@@ -32,6 +32,7 @@ Partial Class frmExportarArchivos
         nudAnios = New NumericUpDown()
         btnGenerar = New Button()
         chkAbrirAlTerminar = New CheckBox()
+        rdbHorario = New RadioButton()
         CType(nudAnios, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -132,11 +133,23 @@ Partial Class frmExportarArchivos
         chkAbrirAlTerminar.Text = "Abrir al terminar"
         chkAbrirAlTerminar.UseVisualStyleBackColor = True
         ' 
+        ' rdbHorario
+        ' 
+        rdbHorario.AutoSize = True
+        rdbHorario.Location = New Point(217, 293)
+        rdbHorario.Name = "rdbHorario"
+        rdbHorario.Size = New Size(112, 19)
+        rdbHorario.TabIndex = 10
+        rdbHorario.TabStop = True
+        rdbHorario.Text = "Horario semanal"
+        rdbHorario.UseVisualStyleBackColor = True
+        ' 
         ' frmExportarArchivos
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(rdbHorario)
         Controls.Add(chkAbrirAlTerminar)
         Controls.Add(btnGenerar)
         Controls.Add(nudAnios)
@@ -164,4 +177,5 @@ Partial Class frmExportarArchivos
     Friend WithEvents nudAnios As NumericUpDown
     Friend WithEvents btnGenerar As Button
     Friend WithEvents chkAbrirAlTerminar As CheckBox
+    Friend WithEvents rdbHorario As RadioButton
 End Class

@@ -4,6 +4,24 @@ Option Infer On
 Imports MySqlConnector
 
 Public Class ReciboDAO
+    Public Shared Function ObtenerPeriodoMembresia(idMembresia As Integer) As DataTable
+        PermisosReportes.Exigir("R01")
+        If idMembresia <= 0 Then Throw New ArgumentException("Selecciona una membresía registrada.")
+        Dim tabla As New DataTable()
+        Using conexion = ConexionBD.CrearConexionReportes()
+            conexion.Open()
+            Dim sql = "SELECT MIN(fecha) AS desde, MAX(fecha) AS hasta " &
+                      "FROM vw_ingresos_detalle WHERE id_membresia = @id"
+            Using comando As New MySqlCommand(sql, conexion)
+                comando.Parameters.AddWithValue("@id", idMembresia)
+                Using lector = comando.ExecuteReader()
+                    tabla.Load(lector)
+                End Using
+            End Using
+        End Using
+        Return tabla
+    End Function
+
     Public Shared Function ListarPagos(desde As Date, hasta As Date, buscar As String, Optional idMembresia As Integer = 0) As DataTable
         PermisosReportes.Exigir("R01")
         If desde.Date > hasta.Date Then Throw New ArgumentException("La fecha Desde no puede ser posterior a Hasta.")

@@ -23,6 +23,19 @@ Public Class frmRecibos
     End Sub
 
     Private Sub frmRecibos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If filtroMembresia > 0 Then
+            Try
+                Dim periodo = ReciboDAO.ObtenerPeriodoMembresia(filtroMembresia)
+                Dim fila = periodo.Rows(0)
+                If Not fila.IsNull("desde") Then
+                    dtpDesde.Value = Convert.ToDateTime(fila("desde")).Date
+                    dtpHasta.Value = Convert.ToDateTime(fila("hasta")).Date
+                End If
+            Catch ex As Exception
+                MostrarError(ex)
+                Return
+            End Try
+        End If
         CargarPagos()
     End Sub
 

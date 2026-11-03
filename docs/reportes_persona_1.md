@@ -50,6 +50,9 @@ escoger otro identificador en sus reportes restringidos.
 R01 abre la ventana de recibos, donde se busca un pago, se previsualiza y se
 imprime. Requiere la conexión y las vistas de reportes indicadas en
 `docs/contrato_recibos.md`.
+También se abre desde Recibos de esta membresía, en Membresías y pagos.
+En ese caso muestra únicamente los pagos de la fila seleccionada y ajusta las
+fechas para incluir todo su historial, aunque sean pagos de meses anteriores.
 
 R02 abre Membresías y pagos. Al seleccionar una membresía Activa cuyo período
 incluya hoy, se habilitan Vista previa constancia, Configurar página e Imprimir
@@ -82,6 +85,10 @@ en PermisosReportes para sus propias consultas.
    los márgenes configurables y la impresión. Una membresía vencida, cancelada
    o que todavía no comenzó no permite emitir la constancia.
 8. Confirmar que R03 a R09, aún pendientes, no intentan imprimir ni exportar.
+9. En Membresías y pagos, seleccionar una fila y pulsar Recibos de esta membresía.
+   Comprobar que aparecen solamente sus pagos, incluidos los anteriores al mes
+   actual. Una membresía vencida o cancelada permite consultar sus recibos,
+   pero no emitir la constancia R02.
 
 R01 y R02 se comprobaron con datos ficticios en un servidor MariaDB separado.
 Las muestras están en `docs/muestras`; su README aclara cómo se generaron.
@@ -89,3 +96,7 @@ Quedan las pruebas con las vistas definitivas y la integración con los reportes
 de los compañeros. En esta instalación todavía no está creado el archivo privado
 `conexion.reportes.local.json`. Persona 3 puede conectar el recibo al registro
 de pagos con el método compartido explicado en el contrato de recibos.
+El acceso manual desde la membresía ya está conectado. Cuando estén disponibles
+las vistas y el usuario, se puede ejecutar `database/comprobar_reportes_persona1.sql`
+desde la conexión gym_reportes para revisar los alias y permisos antes de probar
+la impresión con la base definitiva.

@@ -4,6 +4,13 @@ El recibo se consulta desde Reportes > R01. Primero se busca y selecciona un pag
 después se abre la vista previa o se elige una impresora. Reimprimir no registra
 otro pago ni cambia la base.
 
+También se puede seleccionar una fila en Membresías y pagos y pulsar Recibos de
+esta membresía. Ese botón abre solamente sus pagos y ajusta las fechas desde el
+primero hasta el último, incluidos los recibos anulados. Así se encuentran los
+pagos antiguos sin tener que ampliar manualmente el filtro del mes actual.
+Las membresías vencidas o canceladas conservan acceso a sus recibos; la condición
+de vigencia se exige para R02, no para reimprimir pagos registrados.
+
 ## Vistas que entrega Persona 2
 
 ReciboDAO utiliza CrearConexionReportes y consulta estas dos vistas. Los alias
@@ -41,7 +48,8 @@ histórica separada del saldo.
 
 ## Lo que conecta Persona 3 en su formulario
 
-Para consultar recibos de una membresía seleccionada:
+El botón de consulta manual ya está conectado en frmMembresiasPagos. Si Persona 3
+necesita abrir el mismo listado desde otro lugar, puede usar:
 
 ```vb
 Using formulario As New frmRecibos(idMembresia)
@@ -60,8 +68,21 @@ End If
 `idPagoGuardado` debe ser el identificador que devuelve la inserción confirmada.
 No calcular MAX(id_pago) ni volver a insertar para conseguir un identificador.
 Si no se puede imprimir, el método devuelve False y muestra un aviso; no repite
-ni revierte un pago confirmado. Estos botones y el CheckBox se conectan en el
-formulario de Persona 3 cuando complete el registro de pagos.
+ni revierte un pago confirmado. El CheckBox de impresión automática y la llamada
+después del pago siguen pendientes del registro que completa Persona 3.
+El PagoDAO actual devuelve Boolean: todavía no entrega el identificador del pago.
+
+## Comprobar la instalación
+
+Cuando Persona 2 entregue las vistas y el usuario, abrir en HeidiSQL la conexión
+de gym_reportes y ejecutar `database/comprobar_reportes_persona1.sql`.
+El script muestra la cuenta y sus permisos, y comprueba los nombres de columnas
+de las dos vistas sin recuperar filas personales. No crea ni modifica nada.
+Un error de vista o columna indica que falta ajustar el contrato; un error de
+acceso requiere revisar los permisos de esa cuenta.
+
+El script no demuestra por sí solo que los saldos sean correctos ni reemplaza
+las pruebas de pagos parciales, anulaciones y membresías sin pagos.
 
 ## Permisos comunes
 
@@ -83,6 +104,12 @@ Se utilizaron datos ficticios y un servidor MariaDB separado de la base local.
 Se comprobaron los cuatro roles, vínculos ausentes y cambiados, cuentas bloqueadas
 y desactivadas, cambio de rol, fechas, consultas parametrizadas, pagos parciales,
 saldo pagado, anulaciones, montos en letras y nombres largos.
+
+La integración del botón de membresías pasó 33 comprobaciones adicionales con
+datos ficticios: historial anterior al mes actual, filtro por membresía,
+ausencia de pagos, separación entre R01 y R02 para estados no vigentes,
+permisos por rol, revocación de cuenta y script de comprobación con gym_reportes.
+Consultar el historial no insertó pagos ni membresías.
 
 PrintDocument crea una página con papel personalizado de 315 centésimas de
 pulgada de ancho, aproximadamente 80 mm, y altura calculada según el contenido.

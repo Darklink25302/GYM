@@ -352,13 +352,17 @@
     Private errorConstancia As String = ""
 
     Private Function MembresiaSeleccionada() As Integer
-        If dgvMembresias.SelectedRows.Count <> 1 Then Throw New ArgumentException("Selecciona una membresía en la tabla.")
+        If dgvMembresias.SelectedRows.Count <> 1 OrElse dgvMembresias.SelectedRows(0).IsNewRow Then
+            Throw New ArgumentException("Selecciona una membresía en la tabla.")
+        End If
         Return Convert.ToInt32(dgvMembresias.SelectedRows(0).Cells("id_membresia").Value)
     End Function
 
     Private Sub ActualizarBotonesConstancia() Handles dgvMembresias.SelectionChanged
         Dim disponible As Boolean = False
-        If dgvMembresias.SelectedRows.Count = 1 AndAlso Not dgvMembresias.SelectedRows(0).IsNewRow AndAlso dgvMembresias.Columns.Contains("estado") Then
+        Dim seleccionada = dgvMembresias.SelectedRows.Count = 1 AndAlso Not dgvMembresias.SelectedRows(0).IsNewRow
+        btnRecibosMembresia.Enabled = seleccionada AndAlso PermisosReportes.PuedeVer("R01", Sesion.Rol)
+        If seleccionada AndAlso dgvMembresias.Columns.Contains("estado") Then
             Dim fila = dgvMembresias.SelectedRows(0)
             disponible = Convert.ToString(fila.Cells("estado").Value) = "Activa" AndAlso
                          Convert.ToDateTime(fila.Cells("fecha_inicio").Value).Date <= Date.Today AndAlso
@@ -368,6 +372,19 @@
         btnConstancia.Enabled = disponible
         btnPaginaConstancia.Enabled = disponible
         btnImprimirConstancia.Enabled = disponible
+    End Sub
+
+    Private Sub btnRecibosMembresia_Click(sender As Object, e As EventArgs) Handles btnRecibosMembresia.Click
+        Try
+            PermisosReportes.Exigir("R01")
+            Using formulario As New frmRecibos(MembresiaSeleccionada())
+                formulario.ShowDialog(Me)
+            End Using
+            If Sesion.IdUsuario <= 0 Then Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Recibos de pago", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            If TypeOf ex Is UnauthorizedAccessException OrElse Sesion.IdUsuario <= 0 Then Close()
+        End Try
     End Sub
 
     Private Sub PrepararConstancia()

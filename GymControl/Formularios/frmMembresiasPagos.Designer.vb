@@ -42,6 +42,7 @@ Partial Class frmMembresiasPagos
         btnConstancia = New Button()
         btnPaginaConstancia = New Button()
         btnImprimirConstancia = New Button()
+        btnRecibosMembresia = New Button()
         ppdConstancia = New PrintPreviewDialog()
         psdPaginaConstancia = New PageSetupDialog()
         prdConstancia = New PrintDialog()
@@ -205,6 +206,13 @@ Partial Class frmMembresiasPagos
         btnImprimirConstancia.TabIndex = 17
         btnImprimirConstancia.Text = "Imprimir constancia"
         btnImprimirConstancia.UseVisualStyleBackColor = True
+        btnRecibosMembresia.Enabled = False
+        btnRecibosMembresia.Location = New Point(610, 345)
+        btnRecibosMembresia.Name = "btnRecibosMembresia"
+        btnRecibosMembresia.Size = New Size(170, 35)
+        btnRecibosMembresia.TabIndex = 18
+        btnRecibosMembresia.Text = "Recibos de esta membresía"
+        btnRecibosMembresia.UseVisualStyleBackColor = True
         ppdConstancia.UseAntiAlias = True
         ppdConstancia.WindowState = FormWindowState.Maximized
         ppdConstancia.ShowIcon = False
@@ -222,6 +230,7 @@ Partial Class frmMembresiasPagos
         Controls.Add(btnConstancia)
         Controls.Add(btnPaginaConstancia)
         Controls.Add(btnImprimirConstancia)
+        Controls.Add(btnRecibosMembresia)
         Controls.Add(dgvMembresias)
         Controls.Add(btnLimpiar)
         Controls.Add(btnRegistrarMembresia)
@@ -262,6 +271,7 @@ Partial Class frmMembresiasPagos
     Friend WithEvents btnConstancia As Button
     Friend WithEvents btnPaginaConstancia As Button
     Friend WithEvents btnImprimirConstancia As Button
+    Friend WithEvents btnRecibosMembresia As Button
     Friend WithEvents ppdConstancia As PrintPreviewDialog
     Friend WithEvents psdPaginaConstancia As PageSetupDialog
     Friend WithEvents prdConstancia As PrintDialog

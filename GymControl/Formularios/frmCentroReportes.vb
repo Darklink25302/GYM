@@ -1,13 +1,15 @@
-Option Strict On
+﻿Option Strict On
 Option Infer On
 
 Public Class frmCentroReportes
     Public Sub New()
         InitializeComponent()
+        If System.ComponentModel.LicenseManager.UsageMode = System.ComponentModel.LicenseUsageMode.Designtime Then Return
         If Sesion.IdUsuario <= 0 Then
             Throw New UnauthorizedAccessException("Debes iniciar sesión para consultar reportes.")
         End If
 
+        PermisosReportes.ExigirCentro()
         dtpDesde.Value = New Date(Date.Today.Year, Date.Today.Month, 1)
         dtpCuentaDesde.Value = New Date(Date.Today.Year, 1, 1)
         nudAnio.Maximum = Date.Today.Year
@@ -21,29 +23,15 @@ Public Class frmCentroReportes
         Dim visor As New TreeNode("Reportes en visor")
         Dim archivos As New TreeNode("Archivos Excel y PDF")
 
-        Select Case Sesion.Rol
-            Case "Administrador", "Recepcionista"
-                AgregarReporte(impresion, "R01", "Recibo de pago")
-                AgregarReporte(impresion, "R02", "Constancia de membresía")
-                AgregarReporte(impresion, "R03", "Listado de vencimientos")
-                If Sesion.Rol = "Administrador" Then
-                    AgregarReporte(visor, "R04", "Ingresos por período")
-                End If
-                AgregarReporte(visor, "R05", "Estado de cuenta")
-                AgregarReporte(visor, "R06", "Horario semanal")
-                If Sesion.Rol = "Administrador" Then
-                    AgregarReporte(archivos, "R07", "Cartera de saldos")
-                    AgregarReporte(archivos, "R08", "Informe mensual")
-                    AgregarReporte(archivos, "R09", "Libro de ingresos anual")
-                End If
-            Case "Instructor"
-                AgregarReporte(visor, "R06", "Mi horario semanal")
-            Case "Socio"
-                AgregarReporte(visor, "R05", "Mi estado de cuenta")
-                AgregarReporte(visor, "R06", "Horario semanal")
-            Case Else
-                Throw New UnauthorizedAccessException("Tu rol no tiene acceso a los reportes.")
-        End Select
+        AgregarReporte(impresion, "R01", "Recibo de pago")
+        AgregarReporte(impresion, "R02", "Constancia de membresía")
+        AgregarReporte(impresion, "R03", "Listado de vencimientos")
+        AgregarReporte(visor, "R04", "Ingresos por período")
+        AgregarReporte(visor, "R05", "Estado de cuenta")
+        AgregarReporte(visor, "R06", "Horario semanal")
+        AgregarReporte(archivos, "R07", "Cartera de saldos")
+        AgregarReporte(archivos, "R08", "Informe mensual")
+        AgregarReporte(archivos, "R09", "Libro de ingresos anual")
 
         If impresion.Nodes.Count > 0 Then tvReportes.Nodes.Add(impresion)
         If visor.Nodes.Count > 0 Then tvReportes.Nodes.Add(visor)
@@ -53,6 +41,7 @@ Public Class frmCentroReportes
     End Sub
 
     Private Sub AgregarReporte(grupo As TreeNode, codigo As String, titulo As String)
+        If Not PermisosReportes.PuedeVer(codigo, Sesion.Rol) Then Return
         Dim nodo As New TreeNode(codigo & " · " & titulo)
         nodo.Tag = codigo
         grupo.Nodes.Add(nodo)
@@ -69,6 +58,13 @@ Public Class frmCentroReportes
         End If
 
         Dim codigo = CStr(e.Node.Tag)
+        Try
+            PermisosReportes.Exigir(codigo)
+        Catch ex As Exception
+            lblEstadoReporte.Text = ex.Message
+            If Sesion.IdUsuario <= 0 Then Close()
+            Return
+        End Try
         lblNombreReporte.Text = e.Node.Text
         lblEstadoReporte.Text = "Este reporte todavía no está disponible. Podrás generarlo cuando se complete su integración."
         tslEstado.Text = codigo & " · Pendiente de integración"
@@ -76,7 +72,11 @@ Public Class frmCentroReportes
         Select Case codigo
             Case "R01"
                 lblDescripcion.Text = "Recibo de un pago en ticket de 80 mm, con monto, método y saldo pendiente."
-                lblSeleccion.Text = "Selecciona el pago en Membresías y pagos para imprimir o reimprimir su recibo."
+                lblSeleccion.Text = "Abre el listado, selecciona un pago y utiliza Vista previa o Imprimir."
+                lblEstadoReporte.Text = "Recibo disponible. La consulta necesita las vistas y la conexión de reportes."
+                tslEstado.Text = "R01 · Recibos de pago"
+                btnVistaPrevia.Enabled = True
+                btnImprimir.Enabled = True
                 pnlSeleccion.Visible = True
                 btnVistaPrevia.Visible = True
                 btnImprimir.Visible = True
@@ -141,6 +141,10 @@ Public Class frmCentroReportes
     End Sub
 
     Private Sub OcultarParametros()
+        btnVistaPrevia.Enabled = False
+        btnImprimir.Enabled = False
+        btnExportarPdf.Enabled = False
+        btnExportarExcel.Enabled = False
         pnlSeleccion.Visible = False
         pnlDias.Visible = False
         pnlFechas.Visible = False
@@ -153,6 +157,37 @@ Public Class frmCentroReportes
         btnImprimir.Visible = False
         btnExportarPdf.Visible = False
         btnExportarExcel.Visible = False
+    End Sub
+
+    Private Sub AbrirRecibos()
+        Try
+            If tvReportes.SelectedNode Is Nothing OrElse CStr(tvReportes.SelectedNode.Tag) <> "R01" Then Return
+            PermisosReportes.Exigir("R01")
+            Using formulario As New frmRecibos()
+                formulario.ShowDialog(Me)
+            End Using
+        Catch ex As Exception
+            lblEstadoReporte.Text = ex.Message
+            If Sesion.IdUsuario <= 0 Then Close()
+        End Try
+    End Sub
+
+    Private Sub btnVistaPrevia_Click(sender As Object, e As EventArgs) Handles btnVistaPrevia.Click
+        AbrirRecibos()
+    End Sub
+
+    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+        AbrirRecibos()
+    End Sub
+
+    Private Sub frmCentroReportes_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
+        Try
+            PermisosReportes.ExigirCentro()
+        Catch ex As Exception
+            lblEstadoReporte.Text = ex.Message
+            If Sesion.IdUsuario <= 0 OrElse TypeOf ex Is UnauthorizedAccessException Then Close()
+            OcultarParametros()
+        End Try
     End Sub
 
     Private Sub btnCerrar_Click(sender As Object, e As EventArgs) Handles btnCerrar.Click

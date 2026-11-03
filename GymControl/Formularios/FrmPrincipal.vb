@@ -144,6 +144,10 @@ Public Class FrmPrincipal
             Using formulario As New frmCentroReportes()
                 formulario.ShowDialog(Me)
             End Using
+            If Sesion.IdUsuario <= 0 Then
+                Close()
+                Return
+            End If
             ActualizarMenu()
         Catch ex As Exception
             MostrarError(ex)

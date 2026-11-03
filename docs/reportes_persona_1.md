@@ -47,10 +47,15 @@ Los selectores de socios, instructores y salas todavía no se llenan porque
 dependen de la capa de consultas de Persona 2. Socio e Instructor no pueden
 escoger otro identificador en sus reportes restringidos.
 
-Los botones de impresión y exportación permanecen deshabilitados y se informa
-que la generación está pendiente. No se crean archivos vacíos ni se muestran
-mensajes de generación exitosa. Cada dueño conectará sus reportes cuando existan;
-Persona 1 conserva los archivos del Centro y del menú principal.
+R01 abre la ventana de recibos, donde se busca un pago, se previsualiza y se
+imprime. Requiere la conexión y las vistas de reportes indicadas en
+`docs/contrato_recibos.md`. Los demás reportes permanecen deshabilitados hasta
+su integración. Persona 1 conserva los archivos del Centro y del menú principal.
+
+Los permisos ahora se verifican también contra la cuenta vigente en MariaDB,
+al seleccionar un reporte, consultar un recibo e iniciar su impresión. Los
+compañeros tienen disponibles los controles de alcance de socio e instructor
+en PermisosReportes para sus propias consultas.
 
 ## Cómo probar esta parte
 
@@ -60,7 +65,11 @@ Persona 1 conserva los archivos del Centro y del menú principal.
 4. Cambiar de reporte y seleccionar una categoría: no deben quedar parámetros
    visibles del reporte anterior. Cerrar el Centro debe regresar al menú.
 5. Repetir con las cuatro cuentas de prueba para comprobar su catálogo.
-6. Confirmar que los botones pendientes no intentan imprimir ni exportar.
+6. Entrar a R01 y buscar los pagos. Sin conexión de lectura o vistas, la ventana
+   debe explicar qué falta. Con la base de reportes lista, seleccionar un pago,
+   abrir la vista previa y reimprimir. Comprobar saldo, monto en letras y ANULADO.
+7. Confirmar que los demás reportes pendientes no intentan imprimir ni exportar.
 
-Los PDF y Excel finales, las clases de impresión R01 y R02 y la conexión con los
-reportes de los compañeros corresponden a las siguientes tareas del plan.
+La constancia R02 y la integración con los reportes de los compañeros siguen
+pendientes. Persona 3 puede conectar el recibo al registro de pagos con el
+método compartido explicado en el contrato de recibos.

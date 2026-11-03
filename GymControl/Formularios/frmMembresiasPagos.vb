@@ -11,6 +11,7 @@
 
 
         dtpFechaInicio.Value = Date.Today
+        ActualizarBotonesConstancia()
 
     End Sub
 
@@ -344,6 +345,119 @@
 
         End Try
 
+    End Sub
+
+    Private impresorConstancia As ImpresorConstancia
+    Private idConstancia As Integer
+    Private errorConstancia As String = ""
+
+    Private Function MembresiaSeleccionada() As Integer
+        If dgvMembresias.SelectedRows.Count <> 1 Then Throw New ArgumentException("Selecciona una membresía en la tabla.")
+        Return Convert.ToInt32(dgvMembresias.SelectedRows(0).Cells("id_membresia").Value)
+    End Function
+
+    Private Sub ActualizarBotonesConstancia() Handles dgvMembresias.SelectionChanged
+        Dim disponible As Boolean = False
+        If dgvMembresias.SelectedRows.Count = 1 AndAlso Not dgvMembresias.SelectedRows(0).IsNewRow AndAlso dgvMembresias.Columns.Contains("estado") Then
+            Dim fila = dgvMembresias.SelectedRows(0)
+            disponible = Convert.ToString(fila.Cells("estado").Value) = "Activa" AndAlso
+                         Convert.ToDateTime(fila.Cells("fecha_inicio").Value).Date <= Date.Today AndAlso
+                         Convert.ToDateTime(fila.Cells("fecha_vencimiento").Value).Date >= Date.Today AndAlso
+                         PermisosReportes.PuedeVer("R02", Sesion.Rol)
+        End If
+        btnConstancia.Enabled = disponible
+        btnPaginaConstancia.Enabled = disponible
+        btnImprimirConstancia.Enabled = disponible
+    End Sub
+
+    Private Sub PrepararConstancia()
+        Dim id = MembresiaSeleccionada()
+        Dim datos = ConstanciaDAO.Obtener(id)
+        If impresorConstancia IsNot Nothing AndAlso idConstancia = id Then
+            impresorConstancia.Datos = datos
+            Return
+        End If
+        ppdConstancia.Document = Nothing
+        psdPaginaConstancia.Document = Nothing
+        prdConstancia.Document = Nothing
+        If impresorConstancia IsNot Nothing Then impresorConstancia.Dispose()
+        idConstancia = id
+        impresorConstancia = New ImpresorConstancia(datos, My.Resources.logo_uni_azul)
+        AddHandler impresorConstancia.Documento.BeginPrint, AddressOf ValidarConstancia
+        ppdConstancia.Document = impresorConstancia.Documento
+        psdPaginaConstancia.Document = impresorConstancia.Documento
+        prdConstancia.Document = impresorConstancia.Documento
+    End Sub
+
+    Private Sub ValidarConstancia(sender As Object, e As System.Drawing.Printing.PrintEventArgs)
+        errorConstancia = ""
+        Try
+            impresorConstancia.Datos = ConstanciaDAO.Obtener(idConstancia)
+        Catch ex As Exception
+            e.Cancel = True
+            errorConstancia = DescribirErrorConstancia(ex)
+        End Try
+    End Sub
+
+    Private Sub btnConstancia_Click(sender As Object, e As EventArgs) Handles btnConstancia.Click
+        Try
+            PrepararConstancia()
+            errorConstancia = ""
+            ppdConstancia.PrintPreviewControl.InvalidatePreview()
+            ppdConstancia.ShowDialog(Me)
+            If errorConstancia <> "" Then MessageBox.Show(errorConstancia, "Constancia")
+            If Sesion.IdUsuario <= 0 Then Close()
+        Catch ex As Exception
+            MostrarErrorConstancia(ex)
+        End Try
+    End Sub
+
+    Private Sub btnPaginaConstancia_Click(sender As Object, e As EventArgs) Handles btnPaginaConstancia.Click
+        Try
+            PrepararConstancia()
+            psdPaginaConstancia.ShowDialog(Me)
+        Catch ex As Exception
+            MostrarErrorConstancia(ex)
+        End Try
+    End Sub
+
+    Private Sub btnImprimirConstancia_Click(sender As Object, e As EventArgs) Handles btnImprimirConstancia.Click
+        Try
+            PrepararConstancia()
+            If prdConstancia.ShowDialog(Me) <> DialogResult.OK Then Return
+            errorConstancia = ""
+            impresorConstancia.Documento.Print()
+            If errorConstancia <> "" Then
+                MessageBox.Show(errorConstancia, "No se imprimió la constancia")
+                If Sesion.IdUsuario <= 0 Then Close()
+            Else
+                MessageBox.Show("La constancia se envió a la impresora seleccionada.", "Constancia")
+            End If
+        Catch ex As Exception
+            MostrarErrorConstancia(ex)
+        End Try
+    End Sub
+
+    Private Shared Function DescribirErrorConstancia(ex As Exception) As String
+        If TypeOf ex Is System.IO.FileNotFoundException Then
+            Return "Falta configurar conexion.reportes.local.json con el usuario gym_reportes."
+        End If
+        If TypeOf ex Is MySqlConnector.MySqlException Then
+            Dim fallo = DirectCast(ex, MySqlConnector.MySqlException)
+            If fallo.Number = 1146 OrElse fallo.Number = 1054 OrElse fallo.Number = 1356 Then
+                Return "La vista vw_saldos_membresia todavía no está lista. Revisa las columnas necesarias para R02."
+            End If
+            Return "No se pudo consultar la base de reportes. Revisa la conexión y los permisos de gym_reportes."
+        End If
+        If TypeOf ex Is System.Drawing.Printing.InvalidPrinterException Then
+            Return "No hay una impresora disponible. Selecciona una impresora válida."
+        End If
+        Return ex.Message
+    End Function
+
+    Private Sub MostrarErrorConstancia(ex As Exception)
+        MessageBox.Show(DescribirErrorConstancia(ex), "Constancia de membresía", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If TypeOf ex Is UnauthorizedAccessException OrElse Sesion.IdUsuario <= 0 Then Close()
     End Sub
 
 End Class

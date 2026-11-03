@@ -6,8 +6,9 @@ Partial Class frmMembresiasPagos
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
+            If disposing Then
+                If impresorConstancia IsNot Nothing Then impresorConstancia.Dispose()
+                If components IsNot Nothing Then components.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)
@@ -22,6 +23,7 @@ Partial Class frmMembresiasPagos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        components = New System.ComponentModel.Container()
         lblSocio = New Label()
         lblTipoMembresia = New Label()
         lblFechaInicio = New Label()
@@ -37,6 +39,15 @@ Partial Class frmMembresiasPagos
         btnRegistrarMembresia = New Button()
         btnLimpiar = New Button()
         dgvMembresias = New DataGridView()
+        btnConstancia = New Button()
+        btnPaginaConstancia = New Button()
+        btnImprimirConstancia = New Button()
+        ppdConstancia = New PrintPreviewDialog()
+        psdPaginaConstancia = New PageSetupDialog()
+        prdConstancia = New PrintDialog()
+        components.Add(ppdConstancia)
+        components.Add(psdPaginaConstancia)
+        components.Add(prdConstancia)
         CType(dgvMembresias, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -160,6 +171,7 @@ Partial Class frmMembresiasPagos
         ' 
         ' dgvMembresias
         ' 
+        dgvMembresias.AllowUserToAddRows = False
         dgvMembresias.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvMembresias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvMembresias.Location = New Point(157, 196)
@@ -172,9 +184,44 @@ Partial Class frmMembresiasPagos
         ' 
         ' frmMembresiasPagos
         ' 
+        btnConstancia.Enabled = False
+        btnConstancia.Location = New Point(610, 200)
+        btnConstancia.Name = "btnConstancia"
+        btnConstancia.Size = New Size(170, 35)
+        btnConstancia.TabIndex = 15
+        btnConstancia.Text = "Vista previa constancia"
+        btnConstancia.UseVisualStyleBackColor = True
+        btnPaginaConstancia.Enabled = False
+        btnPaginaConstancia.Location = New Point(610, 245)
+        btnPaginaConstancia.Name = "btnPaginaConstancia"
+        btnPaginaConstancia.Size = New Size(170, 35)
+        btnPaginaConstancia.TabIndex = 16
+        btnPaginaConstancia.Text = "Configurar página"
+        btnPaginaConstancia.UseVisualStyleBackColor = True
+        btnImprimirConstancia.Enabled = False
+        btnImprimirConstancia.Location = New Point(610, 290)
+        btnImprimirConstancia.Name = "btnImprimirConstancia"
+        btnImprimirConstancia.Size = New Size(170, 35)
+        btnImprimirConstancia.TabIndex = 17
+        btnImprimirConstancia.Text = "Imprimir constancia"
+        btnImprimirConstancia.UseVisualStyleBackColor = True
+        ppdConstancia.UseAntiAlias = True
+        ppdConstancia.WindowState = FormWindowState.Maximized
+        ppdConstancia.ShowIcon = False
+        psdPaginaConstancia.EnableMetric = True
+        psdPaginaConstancia.AllowMargins = True
+        psdPaginaConstancia.AllowPrinter = True
+        psdPaginaConstancia.AllowPaper = False
+        psdPaginaConstancia.AllowOrientation = False
+        psdPaginaConstancia.MinMargins = New System.Drawing.Printing.Margins(25, 25, 25, 25)
+        prdConstancia.UseEXDialog = True
+        prdConstancia.AllowSomePages = False
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(btnConstancia)
+        Controls.Add(btnPaginaConstancia)
+        Controls.Add(btnImprimirConstancia)
         Controls.Add(dgvMembresias)
         Controls.Add(btnLimpiar)
         Controls.Add(btnRegistrarMembresia)
@@ -212,4 +259,10 @@ Partial Class frmMembresiasPagos
     Friend WithEvents btnRegistrarMembresia As Button
     Friend WithEvents btnLimpiar As Button
     Friend WithEvents dgvMembresias As DataGridView
+    Friend WithEvents btnConstancia As Button
+    Friend WithEvents btnPaginaConstancia As Button
+    Friend WithEvents btnImprimirConstancia As Button
+    Friend WithEvents ppdConstancia As PrintPreviewDialog
+    Friend WithEvents psdPaginaConstancia As PageSetupDialog
+    Friend WithEvents prdConstancia As PrintDialog
 End Class

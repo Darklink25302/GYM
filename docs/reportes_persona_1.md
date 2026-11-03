@@ -49,11 +49,21 @@ escoger otro identificador en sus reportes restringidos.
 
 R01 abre la ventana de recibos, donde se busca un pago, se previsualiza y se
 imprime. Requiere la conexión y las vistas de reportes indicadas en
-`docs/contrato_recibos.md`. Los demás reportes permanecen deshabilitados hasta
-su integración. Persona 1 conserva los archivos del Centro y del menú principal.
+`docs/contrato_recibos.md`.
+
+R02 abre Membresías y pagos. Al seleccionar una membresía Activa cuyo período
+incluya hoy, se habilitan Vista previa constancia, Configurar página e Imprimir
+constancia. La hoja es Carta vertical, con el logo azul proporcionado en el
+enunciado, datos del socio, plan, período, importes, fecha en letras y firma.
+Los márgenes se ajustan desde Configurar página. Tener saldo pendiente no impide
+emitir una constancia si la membresía sigue vigente: el documento informa el saldo.
+Las columnas y pruebas se describen en `docs/contrato_constancias.md`.
+
+R03 a R09 permanecen deshabilitados hasta su integración. Persona 1 conserva
+los archivos del Centro y del menú principal.
 
 Los permisos ahora se verifican también contra la cuenta vigente en MariaDB,
-al seleccionar un reporte, consultar un recibo e iniciar su impresión. Los
+al seleccionar un reporte, consultar los datos e iniciar su impresión. Los
 compañeros tienen disponibles los controles de alcance de socio e instructor
 en PermisosReportes para sus propias consultas.
 
@@ -68,8 +78,14 @@ en PermisosReportes para sus propias consultas.
 6. Entrar a R01 y buscar los pagos. Sin conexión de lectura o vistas, la ventana
    debe explicar qué falta. Con la base de reportes lista, seleccionar un pago,
    abrir la vista previa y reimprimir. Comprobar saldo, monto en letras y ANULADO.
-7. Confirmar que los demás reportes pendientes no intentan imprimir ni exportar.
+7. Entrar a R02, seleccionar una membresía vigente y comprobar su vista previa,
+   los márgenes configurables y la impresión. Una membresía vencida, cancelada
+   o que todavía no comenzó no permite emitir la constancia.
+8. Confirmar que R03 a R09, aún pendientes, no intentan imprimir ni exportar.
 
-La constancia R02 y la integración con los reportes de los compañeros siguen
-pendientes. Persona 3 puede conectar el recibo al registro de pagos con el
-método compartido explicado en el contrato de recibos.
+R01 y R02 se comprobaron con datos ficticios en un servidor MariaDB separado.
+Las muestras están en `docs/muestras`; su README aclara cómo se generaron.
+Quedan las pruebas con las vistas definitivas y la integración con los reportes
+de los compañeros. En esta instalación todavía no está creado el archivo privado
+`conexion.reportes.local.json`. Persona 3 puede conectar el recibo al registro
+de pagos con el método compartido explicado en el contrato de recibos.

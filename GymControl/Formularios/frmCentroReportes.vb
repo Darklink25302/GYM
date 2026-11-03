@@ -86,6 +86,10 @@ Public Class frmCentroReportes
                 pnlSeleccion.Visible = True
                 btnVistaPrevia.Visible = True
                 btnImprimir.Visible = True
+                btnVistaPrevia.Enabled = True
+                btnImprimir.Enabled = True
+                lblEstadoReporte.Text = "Abre Membresías y pagos y selecciona una membresía vigente."
+                tslEstado.Text = "R02 · Constancia de membresía"
             Case "R03"
                 lblDescripcion.Text = "Membresías próximas a vencer o vencidas, con teléfono y saldo para contactar al socio."
                 pnlDias.Visible = True
@@ -173,11 +177,11 @@ Public Class frmCentroReportes
     End Sub
 
     Private Sub btnVistaPrevia_Click(sender As Object, e As EventArgs) Handles btnVistaPrevia.Click
-        AbrirRecibos()
+        AbrirReporteSeleccionado()
     End Sub
 
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
-        AbrirRecibos()
+        AbrirReporteSeleccionado()
     End Sub
 
     Private Sub frmCentroReportes_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
@@ -193,4 +197,23 @@ Public Class frmCentroReportes
     Private Sub btnCerrar_Click(sender As Object, e As EventArgs) Handles btnCerrar.Click
         Close()
     End Sub
+    Private Sub AbrirReporteSeleccionado()
+        If tvReportes.SelectedNode Is Nothing OrElse tvReportes.SelectedNode.Tag Is Nothing Then Return
+        Dim codigo = CStr(tvReportes.SelectedNode.Tag)
+        If codigo = "R01" Then
+            AbrirRecibos()
+            Return
+        End If
+        If codigo <> "R02" Then Return
+        Try
+            PermisosReportes.Exigir("R02")
+            Using formulario As New frmMembresiasPagos()
+                formulario.ShowDialog(Me)
+            End Using
+        Catch ex As Exception
+            lblEstadoReporte.Text = ex.Message
+            If Sesion.IdUsuario <= 0 Then Close()
+        End Try
+    End Sub
+
 End Class

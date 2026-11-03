@@ -277,6 +277,23 @@ Public NotInheritable Class UsuarioDAO
                     idInstructor = usuario.IdInstructor.Value
                 End If
 
+                If idSocio IsNot DBNull.Value Then
+                    Using comando As New MySqlCommand("SELECT COUNT(*) FROM socios WHERE id_socio = @id", conexion, transaccion)
+                        comando.Parameters.AddWithValue("@id", idSocio)
+                        If Convert.ToInt32(comando.ExecuteScalar()) = 0 Then
+                            Throw New ArgumentException("El socio indicado no existe.")
+                        End If
+                    End Using
+                End If
+                If idInstructor IsNot DBNull.Value Then
+                    Using comando As New MySqlCommand("SELECT COUNT(*) FROM instructores WHERE IdInstructor = @id", conexion, transaccion)
+                        comando.Parameters.AddWithValue("@id", idInstructor)
+                        If Convert.ToInt32(comando.ExecuteScalar()) = 0 Then
+                            Throw New ArgumentException("El instructor indicado no existe.")
+                        End If
+                    End Using
+                End If
+
                 Dim consulta As String
                 If usuario.IdUsuario = 0 Then
                     consulta = "INSERT INTO usuarios " &

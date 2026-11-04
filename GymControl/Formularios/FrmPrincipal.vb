@@ -20,4 +20,22 @@ Public Class FrmPrincipal
     Private Sub FrmPrincipal_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Sesion.Limpiar()
     End Sub
+
+    Private Sub btnVerificarPagos_Click(sender As Object, e As EventArgs) Handles btnVerificarPagos.Click
+
+        Try
+            Dim dao As New PagoDAO()
+            Dim columnas As String = dao.VerificarColumnasAnulacion()
+
+            MessageBox.Show(
+            columnas,
+            "Columnas de la tabla pagos"
+        )
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error")
+        End Try
+
+    End Sub
+
 End Class

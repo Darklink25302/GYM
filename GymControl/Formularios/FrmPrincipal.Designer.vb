@@ -17,55 +17,78 @@ Partial Class FrmPrincipal
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.pnlContenido = New Panel()
-        Me.lblBienvenida = New Label()
-        Me.lblRol = New Label()
-        Me.btnCerrarSesion = New Button()
-        Me.pnlContenido.SuspendLayout()
-        Me.SuspendLayout()
-
-        Me.pnlContenido.Name = "pnlContenido"
-        Me.pnlContenido.Dock = DockStyle.Fill
-        Me.pnlContenido.Controls.Add(Me.lblBienvenida)
-        Me.pnlContenido.Controls.Add(Me.lblRol)
-        Me.pnlContenido.Controls.Add(Me.btnCerrarSesion)
-
-        Me.lblBienvenida.Name = "lblBienvenida"
-        Me.lblBienvenida.Location = New Point(32, 32)
-        Me.lblBienvenida.Size = New Size(496, 64)
-        Me.lblBienvenida.Text = ""
-        Me.lblBienvenida.Font = New Font("Segoe UI", 18.0F, FontStyle.Bold)
-
-        Me.lblRol.Name = "lblRol"
-        Me.lblRol.Location = New Point(32, 108)
-        Me.lblRol.Size = New Size(496, 24)
-        Me.lblRol.Text = ""
-
-        Me.btnCerrarSesion.Name = "btnCerrarSesion"
-        Me.btnCerrarSesion.Location = New Point(32, 157)
-        Me.btnCerrarSesion.Size = New Size(140, 36)
-        Me.btnCerrarSesion.Text = "Cerrar sesión"
-        Me.btnCerrarSesion.UseVisualStyleBackColor = True
-        Me.btnCerrarSesion.TabIndex = 0
-
-        Me.AutoScaleDimensions = New SizeF(96.0F, 96.0F)
-        Me.AutoScaleMode = AutoScaleMode.Dpi
-        Me.ClientSize = New Size(560, 260)
-        Me.Font = New Font("Segoe UI", 10.0F)
-        Me.FormBorderStyle = FormBorderStyle.FixedDialog
-        Me.MaximizeBox = False
-        Me.StartPosition = FormStartPosition.CenterParent
-        Me.Text = "GymControl"
-        Me.Controls.Add(Me.pnlContenido)
-
-        Me.pnlContenido.ResumeLayout(False)
-        Me.pnlContenido.PerformLayout()
-        Me.ResumeLayout(False)
+        pnlContenido = New Panel()
+        lblBienvenida = New Label()
+        lblRol = New Label()
+        btnCerrarSesion = New Button()
+        btnVerificarPagos = New Button()
+        pnlContenido.SuspendLayout()
+        SuspendLayout()
+        ' 
+        ' pnlContenido
+        ' 
+        pnlContenido.Controls.Add(btnVerificarPagos)
+        pnlContenido.Controls.Add(lblBienvenida)
+        pnlContenido.Controls.Add(lblRol)
+        pnlContenido.Controls.Add(btnCerrarSesion)
+        pnlContenido.Dock = DockStyle.Fill
+        pnlContenido.Location = New Point(0, 0)
+        pnlContenido.Name = "pnlContenido"
+        pnlContenido.Size = New Size(560, 260)
+        pnlContenido.TabIndex = 0
+        ' 
+        ' lblBienvenida
+        ' 
+        lblBienvenida.Font = New Font("Segoe UI", 18F, FontStyle.Bold)
+        lblBienvenida.Location = New Point(32, 32)
+        lblBienvenida.Name = "lblBienvenida"
+        lblBienvenida.Size = New Size(496, 64)
+        lblBienvenida.TabIndex = 0
+        ' 
+        ' lblRol
+        ' 
+        lblRol.Location = New Point(32, 108)
+        lblRol.Name = "lblRol"
+        lblRol.Size = New Size(496, 24)
+        lblRol.TabIndex = 1
+        ' 
+        ' btnCerrarSesion
+        ' 
+        btnCerrarSesion.Location = New Point(32, 157)
+        btnCerrarSesion.Name = "btnCerrarSesion"
+        btnCerrarSesion.Size = New Size(140, 36)
+        btnCerrarSesion.TabIndex = 0
+        btnCerrarSesion.Text = "Cerrar sesión"
+        btnCerrarSesion.UseVisualStyleBackColor = True
+        ' 
+        ' btnVerificarPagos
+        ' 
+        btnVerificarPagos.Location = New Point(32, 73)
+        btnVerificarPagos.Name = "btnVerificarPagos"
+        btnVerificarPagos.Size = New Size(75, 23)
+        btnVerificarPagos.TabIndex = 1
+        btnVerificarPagos.Text = "Verificar pagos"
+        btnVerificarPagos.UseVisualStyleBackColor = True
+        ' 
+        ' FrmPrincipal
+        ' 
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
+        ClientSize = New Size(560, 260)
+        Controls.Add(pnlContenido)
+        Font = New Font("Segoe UI", 10F)
+        FormBorderStyle = FormBorderStyle.FixedDialog
+        MaximizeBox = False
+        Name = "FrmPrincipal"
+        StartPosition = FormStartPosition.CenterParent
+        Text = "GymControl"
+        pnlContenido.ResumeLayout(False)
+        ResumeLayout(False)
     End Sub
 
     Friend WithEvents pnlContenido As Panel
     Friend WithEvents lblBienvenida As Label
     Friend WithEvents lblRol As Label
     Friend WithEvents btnCerrarSesion As Button
+    Friend WithEvents btnVerificarPagos As Button
 End Class

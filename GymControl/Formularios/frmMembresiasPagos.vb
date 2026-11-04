@@ -346,4 +346,83 @@
 
     End Sub
 
+    Private Sub btnRegistrarPago_Click(
+    sender As Object,
+    e As EventArgs
+) Handles btnRegistrarPago.Click
+
+        Try
+            If dgvMembresias.CurrentRow Is Nothing Then
+                MessageBox.Show("Seleccioná una membresía.")
+                Exit Sub
+            End If
+
+            Dim fila = dgvMembresias.CurrentRow
+
+            Dim idMembresia As Integer =
+                Convert.ToInt32(fila.Cells("id_membresia").Value)
+
+            Dim saldo As Decimal =
+                Convert.ToDecimal(fila.Cells("saldo").Value)
+
+            If saldo <= 0D Then
+                MessageBox.Show("Esta membresía no tiene saldo pendiente.")
+                Exit Sub
+            End If
+
+            Dim entrada As String = InputBox(
+                "Saldo pendiente: C$ " & saldo.ToString("N2") &
+                Environment.NewLine &
+                "Ingresá el monto del pago:",
+                "Registrar pago"
+            )
+
+            If String.IsNullOrWhiteSpace(entrada) Then Exit Sub
+
+            Dim monto As Decimal
+
+            If Not Decimal.TryParse(entrada, monto) OrElse monto <= 0D Then
+                MessageBox.Show("Ingresá un monto válido mayor que cero.")
+                Exit Sub
+            End If
+
+            If monto > saldo Then
+                MessageBox.Show("El pago no puede superar el saldo pendiente.")
+                Exit Sub
+            End If
+
+            Dim confirmacion = MessageBox.Show(
+                "¿Registrar el pago de C$ " & monto.ToString("N2") & "?",
+                "Confirmar pago",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            )
+
+            If confirmacion <> DialogResult.Yes Then Exit Sub
+
+            Dim pago As New Pago With {
+                .IdMembresia = idMembresia,
+                .FechaPago = Date.Today,
+                .Monto = monto
+            }
+
+            Dim dao As New PagoDAO()
+
+            If dao.Insertar(pago) Then
+                MessageBox.Show("Pago registrado correctamente.")
+                CargarMembresias()
+            Else
+                MessageBox.Show("No se pudo registrar el pago.")
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(
+                "Error al registrar pago: " & ex.Message,
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            )
+        End Try
+
+    End Sub
 End Class

@@ -37,6 +37,7 @@ Partial Class frmMembresiasPagos
         btnRegistrarMembresia = New Button()
         btnLimpiar = New Button()
         dgvMembresias = New DataGridView()
+        btnRegistrarPago = New Button()
         CType(dgvMembresias, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -170,11 +171,21 @@ Partial Class frmMembresiasPagos
         dgvMembresias.Size = New Size(426, 206)
         dgvMembresias.TabIndex = 14
         ' 
+        ' btnRegistrarPago
+        ' 
+        btnRegistrarPago.Location = New Point(537, 105)
+        btnRegistrarPago.Name = "btnRegistrarPago"
+        btnRegistrarPago.Size = New Size(75, 26)
+        btnRegistrarPago.TabIndex = 15
+        btnRegistrarPago.Text = "Registrar pago"
+        btnRegistrarPago.UseVisualStyleBackColor = True
+        ' 
         ' frmMembresiasPagos
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(btnRegistrarPago)
         Controls.Add(dgvMembresias)
         Controls.Add(btnLimpiar)
         Controls.Add(btnRegistrarMembresia)
@@ -212,4 +223,5 @@ Partial Class frmMembresiasPagos
     Friend WithEvents btnRegistrarMembresia As Button
     Friend WithEvents btnLimpiar As Button
     Friend WithEvents dgvMembresias As DataGridView
+    Friend WithEvents btnRegistrarPago As Button
 End Class

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="reportes\PdfHorario.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="reportes\R06_Horario.rdlc" />
   </ItemGroup>
 

@@ -1,17 +1,5 @@
-# Muestras de Persona 1
+# Muestras de los nueve reportes
 
-R01_Recibo.pdf y R02_Constancia.pdf se generaron desde PrintDocument con
-Microsoft Print to PDF y datos ficticios de una base aislada de pruebas.
-No contienen datos de la instalación local ni acreditan un pago real.
+Generadas con datos ficticios de la base aislada de prueba el 15 de noviembre de 2026. R01 a R03 usan PrintDocument y Microsoft Print to PDF; R04 a R06 se exportan desde RDLC; R07 y R09 son Excel y R08 es PDF. R01_Anulado muestra una anulación.
 
-R02 usa Carta vertical, con márgenes configurables, datos de la membresía,
-pagos válidos, fecha en letras y espacio para firma y sello. El logo procede
-del HTML del enunciado. La fecha impresa corresponde al día de generación.
-
-R01 configura un ticket de 315 centésimas de pulgada de ancho, aproximadamente
-80 mm. Microsoft Print to PDF guarda esta muestra en una hoja Carta; el ticket
-queda arriba a la izquierda. La vista previa conserva el ancho de 80 mm y la
-impresora térmica debe admitir el papel personalizado. El PDF de muestra no
-comprueba el funcionamiento de una impresora térmica física.
-
-Repetir las pruebas con las vistas definitivas del equipo antes de la entrega.
+El recibo configura un ancho de 80 mm; Microsoft Print to PDF lo coloca arriba a la izquierda de una hoja Carta. No se probó una impresora térmica física.

@@ -1,4 +1,4 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmPrincipal
     Inherits Form
 
@@ -30,6 +30,7 @@ Partial Class FrmPrincipal
         btnSalas = New Button()
         btnHorarios = New Button()
         btnReportes = New Button()
+        btnPortalSocio = New Button()
         pnlContenido.SuspendLayout()
         SuspendLayout()
 
@@ -50,11 +51,11 @@ Partial Class FrmPrincipal
         lblRol.Size = New Size(552, 28)
 
         lblAviso.Name = "lblAviso"
-        lblAviso.Location = New Point(32, 400)
+        lblAviso.Location = New Point(32, 445)
         lblAviso.Size = New Size(552, 42)
 
         btnCerrarSesion.Name = "btnCerrarSesion"
-        btnCerrarSesion.Location = New Point(32, 468)
+        btnCerrarSesion.Location = New Point(32, 515)
         btnCerrarSesion.Size = New Size(180, 38)
         btnCerrarSesion.Text = "Cerrar sesión"
         btnCerrarSesion.TabIndex = 9
@@ -90,7 +91,7 @@ Partial Class FrmPrincipal
         btnMembresias.Name = "btnMembresias"
         btnMembresias.Location = New Point(312, 194)
         btnMembresias.Size = New Size(272, 38)
-        btnMembresias.Text = "Membresías y primer abono"
+        btnMembresias.Text = "Membresías y pagos"
         btnMembresias.Visible = False
         btnMembresias.TabIndex = 3
         btnMembresias.UseVisualStyleBackColor = True
@@ -141,9 +142,17 @@ Partial Class FrmPrincipal
         btnReportes.UseVisualStyleBackColor = True
         pnlContenido.Controls.Add(btnReportes)
 
+        btnPortalSocio.Name = "btnPortalSocio"
+        btnPortalSocio.Location = New Point(32, 394)
+        btnPortalSocio.Size = New Size(552, 38)
+        btnPortalSocio.Text = "Portal del socio"
+        btnPortalSocio.TabIndex = 9
+        btnPortalSocio.UseVisualStyleBackColor = True
+        pnlContenido.Controls.Add(btnPortalSocio)
+
         AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         AutoScaleMode = AutoScaleMode.Dpi
-        ClientSize = New Size(616, 540)
+        ClientSize = New Size(616, 585)
         Font = New Font("Segoe UI", 10.0F)
         FormBorderStyle = FormBorderStyle.FixedDialog
         MaximizeBox = False
@@ -169,4 +178,5 @@ Partial Class FrmPrincipal
     Friend WithEvents btnSalas As Button
     Friend WithEvents btnHorarios As Button
     Friend WithEvents btnReportes As Button
+    Friend WithEvents btnPortalSocio As Button
 End Class

@@ -69,79 +69,76 @@ Public Class frmCentroReportes
         lblEstadoReporte.Text = "Este reporte todavía no está disponible. Podrás generarlo cuando se complete su integración."
         tslEstado.Text = codigo & " · Pendiente de integración"
 
-        Select Case codigo
-            Case "R01"
-                lblDescripcion.Text = "Recibo de un pago en ticket de 80 mm, con monto, método y saldo pendiente."
-                lblSeleccion.Text = "Abre el listado, selecciona un pago y utiliza Vista previa o Imprimir."
-                lblEstadoReporte.Text = "Recibo disponible. La consulta necesita las vistas y la conexión de reportes."
-                tslEstado.Text = "R01 · Recibos de pago"
-                btnVistaPrevia.Enabled = True
-                btnImprimir.Enabled = True
-                pnlSeleccion.Visible = True
-                btnVistaPrevia.Visible = True
-                btnImprimir.Visible = True
-            Case "R02"
-                lblDescripcion.Text = "Constancia de una membresía vigente en tamaño Carta, con los datos del socio y del plan."
-                lblSeleccion.Text = "Selecciona una membresía vigente en Membresías y pagos para emitir la constancia."
-                pnlSeleccion.Visible = True
-                btnVistaPrevia.Visible = True
-                btnImprimir.Visible = True
-                btnVistaPrevia.Enabled = True
-                btnImprimir.Enabled = True
-                lblEstadoReporte.Text = "Abre Membresías y pagos y selecciona una membresía vigente."
-                tslEstado.Text = "R02 · Constancia de membresía"
-            Case "R03"
-                lblDescripcion.Text = "Membresías próximas a vencer o vencidas, con teléfono y saldo para contactar al socio."
-                pnlDias.Visible = True
-                btnVistaPrevia.Visible = True
-                btnImprimir.Visible = True
-            Case "R04"
-                lblDescripcion.Text = "Ingresos del período por día y método de pago. Los pagos anulados se informan por separado."
-                pnlFechas.Visible = True
-                btnVistaPrevia.Visible = True
-                btnExportarPdf.Visible = True
-                btnExportarExcel.Visible = True
-            Case "R05"
-                lblDescripcion.Text = "Membresías, pagos y saldo del socio. Los pagos anulados se muestran sin sumarlos a lo abonado."
-                pnlSocio.Visible = True
-                lblSocioSesion.Visible = Sesion.Rol = "Socio"
-                cboSocio.Visible = Sesion.Rol <> "Socio"
-                If Sesion.Rol = "Socio" Then
-                    If Sesion.IdSocio.HasValue Then
-                        lblSocioSesion.Text = "Tu socio vinculado: " & Sesion.IdSocio.Value.ToString()
-                    Else
-                        lblSocioSesion.Text = "Un administrador debe vincular tu cuenta con un socio."
-                    End If
-                End If
-                btnVistaPrevia.Visible = True
-                btnExportarPdf.Visible = True
-            Case "R06"
-                lblDescripcion.Text = "Clases semanales por día y hora, con instructor, actividad y sala."
-                pnlHorario.Visible = True
-                lblInstructorSesion.Visible = Sesion.Rol = "Instructor"
-                cboInstructor.Visible = Sesion.Rol <> "Instructor"
-                If Sesion.Rol = "Instructor" Then
-                    If Sesion.IdInstructor.HasValue Then
-                        lblInstructorSesion.Text = "Tu instructor vinculado: " & Sesion.IdInstructor.Value.ToString()
-                    Else
-                        lblInstructorSesion.Text = "Un administrador debe vincular tu cuenta con un instructor."
-                    End If
-                End If
-                btnVistaPrevia.Visible = True
-                btnExportarPdf.Visible = True
-            Case "R07"
-                lblDescripcion.Text = "Libro Excel con saldos pendientes, categorías de atraso, filtros y fórmulas."
-                pnlCartera.Visible = True
-                btnExportarExcel.Visible = True
-            Case "R08"
-                lblDescripcion.Text = "Informe PDF con indicadores del mes, ingresos por plan, saldos y horas de clase."
-                pnlMes.Visible = True
-                btnExportarPdf.Visible = True
-            Case "R09"
-                lblDescripcion.Text = "Libro Excel con las doce hojas mensuales y un resumen anual que se recalcula con fórmulas."
-                pnlAnio.Visible = True
-                btnExportarExcel.Visible = True
-        End Select
+        Try
+            Select Case codigo
+                Case "R01"
+                    lblDescripcion.Text="Recibo de pago de 80 mm, con saldo, monto en letras y marca de anulación."
+                    lblSeleccion.Text="Abre el listado, selecciona un pago y utiliza Vista previa o Imprimir."
+                    pnlSeleccion.Visible=True
+                    btnVistaPrevia.Visible=True : btnImprimir.Visible=True
+                Case "R02"
+                    lblDescripcion.Text="Constancia de membresía vigente en papel Carta con márgenes configurables."
+                    lblSeleccion.Text="Selecciona una membresía vigente en Membresías y pagos para emitir la constancia."
+                    pnlSeleccion.Visible=True
+                    btnVistaPrevia.Visible=True : btnImprimir.Visible=True
+                Case "R03"
+                    lblDescripcion.Text="Listado paginado de vencimientos con teléfono, saldo y espacio para registrar la llamada."
+                    pnlDias.Visible=True
+                    btnVistaPrevia.Visible=True : btnImprimir.Visible=True
+                Case "R04"
+                    lblDescripcion.Text="Ingresos por día y método de pago, con subtotales y resumen de anulados."
+                    pnlFechas.Visible=True
+                    btnVistaPrevia.Visible=True : btnExportarPdf.Visible=True : btnExportarExcel.Visible=True
+                Case "R05"
+                    lblDescripcion.Text="Estado de cuenta por membresía. Los pagos anulados no reducen el saldo."
+                    pnlSocio.Visible=True
+                    cboSocio.DisplayMember="socio"
+                    cboSocio.ValueMember="id_socio"
+                    cboSocio.DataSource=ReporteDAO.Socios()
+                    cboSocio.Enabled=Sesion.Rol<>"Socio"
+                    cboSocio.Visible=Sesion.Rol<>"Socio"
+                    lblSocioSesion.Visible=Sesion.Rol="Socio"
+                    lblSocioSesion.Text="Tu socio vinculado: " & Sesion.IdSocio.GetValueOrDefault().ToString()
+                    btnVistaPrevia.Visible=True : btnExportarPdf.Visible=True
+                Case "R06"
+                    lblDescripcion.Text="Matriz de lunes a sábado con horas semanales por instructor y sala."
+                    pnlHorario.Visible=True
+                    Dim instructores=ReporteDAO.Instructores()
+                    Dim fila=instructores.NewRow()
+                    fila("id_instructor")=0 : fila("instructor")="Todos"
+                    instructores.Rows.InsertAt(fila,0)
+                    cboInstructor.DisplayMember="instructor" : cboInstructor.ValueMember="id_instructor" : cboInstructor.DataSource=instructores
+                    Dim salas=ReporteDAO.Salas()
+                    fila=salas.NewRow()
+                    fila("id_sala")=0 : fila("sala")="Todas"
+                    salas.Rows.InsertAt(fila,0)
+                    cboSala.DisplayMember="sala" : cboSala.ValueMember="id_sala" : cboSala.DataSource=salas
+                    cboSala.Enabled=True
+                    cboInstructor.Enabled=Sesion.Rol<>"Instructor"
+                    cboInstructor.Visible=Sesion.Rol<>"Instructor"
+                    lblInstructorSesion.Visible=Sesion.Rol="Instructor"
+                    lblInstructorSesion.Text="Tu instructor vinculado: " & Sesion.IdInstructor.GetValueOrDefault().ToString()
+                    btnVistaPrevia.Visible=True : btnExportarPdf.Visible=True
+                Case "R07"
+                    lblDescripcion.Text="Cartera Excel con fórmulas, categorías, autofiltro y totales visibles."
+                    pnlCartera.Visible=True : btnExportarExcel.Visible=True
+                Case "R08"
+                    lblDescripcion.Text="Informe mensual con indicadores reales, ingresos, saldos y horas de clase."
+                    pnlMes.Visible=True : btnExportarPdf.Visible=True
+                Case "R09"
+                    lblDescripcion.Text="Libro Excel con doce meses y resumen recalculable; los anulados se excluyen de los totales."
+                    pnlAnio.Visible=True : btnExportarExcel.Visible=True
+            End Select
+            btnVistaPrevia.Enabled=btnVistaPrevia.Visible
+            btnImprimir.Enabled=btnImprimir.Visible
+            btnExportarPdf.Enabled=btnExportarPdf.Visible
+            btnExportarExcel.Enabled=btnExportarExcel.Visible
+            lblEstadoReporte.Text="Disponible. Elige los parámetros y abre el reporte."
+            tslEstado.Text=codigo & " · Disponible"
+        Catch ex As Exception
+            lblEstadoReporte.Text=ex.Message
+            If Sesion.IdUsuario<=0 Then Close()
+        End Try
     End Sub
 
     Private Sub OcultarParametros()
@@ -199,21 +196,55 @@ Public Class frmCentroReportes
     End Sub
     Private Sub AbrirReporteSeleccionado()
         If tvReportes.SelectedNode Is Nothing OrElse tvReportes.SelectedNode.Tag Is Nothing Then Return
-        Dim codigo = CStr(tvReportes.SelectedNode.Tag)
-        If codigo = "R01" Then
-            AbrirRecibos()
-            Return
-        End If
-        If codigo <> "R02" Then Return
+        Dim codigo=CStr(tvReportes.SelectedNode.Tag)
         Try
-            PermisosReportes.Exigir("R02")
-            Using formulario As New frmMembresiasPagos()
-                formulario.ShowDialog(Me)
-            End Using
+            PermisosReportes.Exigir(codigo)
+            Select Case codigo
+                Case "R01"
+                    AbrirRecibos()
+                Case "R02"
+                    Using formulario As New frmMembresiasPagos()
+                        formulario.ShowDialog(Me)
+                    End Using
+                Case "R03"
+                    Using formulario As New frmListadoVencimientos(CInt(nudDiasAdelante.Value),CInt(nudDiasAtras.Value),chkSoloConSaldo.Checked,chkHorizontal.Checked)
+                        formulario.ShowDialog(Me)
+                    End Using
+                Case "R04", "R05", "R06"
+                    Dim socio=0
+                    Dim instructor=0
+                    Dim sala=0
+                    Dim desde=dtpDesde.Value.Date
+                    If codigo="R05" Then
+                        desde=dtpCuentaDesde.Value.Date
+                        If Sesion.Rol="Socio" Then
+                            socio=PermisosReportes.ObtenerSocioPermitido(0)
+                        Else
+                            If cboSocio.SelectedValue Is Nothing Then Throw New ArgumentException("Selecciona un socio.")
+                            socio=Convert.ToInt32(cboSocio.SelectedValue)
+                        End If
+                    End If
+                    If codigo="R06" Then
+                        If cboInstructor.SelectedValue IsNot Nothing Then instructor=Convert.ToInt32(cboInstructor.SelectedValue)
+                        instructor=PermisosReportes.ObtenerInstructorPermitido(instructor)
+                        If cboSala.SelectedValue IsNot Nothing Then sala=Convert.ToInt32(cboSala.SelectedValue)
+                    End If
+                    Using formulario As New frmVisorReportes(codigo,desde,dtpHasta.Value.Date,CStr(cboMetodo.SelectedItem),socio,instructor,sala)
+                        formulario.ShowDialog(Me)
+                    End Using
+                Case "R07", "R08", "R09"
+                    Using formulario As New frmExportarArchivos(codigo,dtpMes.Value,CInt(nudAnio.Value),chkIncluirAlDia.Checked)
+                        formulario.ShowDialog(Me)
+                    End Using
+            End Select
+            If Sesion.IdUsuario<=0 Then Close()
         Catch ex As Exception
-            lblEstadoReporte.Text = ex.Message
-            If Sesion.IdUsuario <= 0 Then Close()
+            lblEstadoReporte.Text=ex.Message
+            If Sesion.IdUsuario<=0 Then Close()
         End Try
     End Sub
 
+    Private Sub btnExportarPdf_Click(sender As Object,e As EventArgs) Handles btnExportarPdf.Click,btnExportarExcel.Click
+        AbrirReporteSeleccionado()
+    End Sub
 End Class

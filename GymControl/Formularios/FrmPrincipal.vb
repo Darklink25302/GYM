@@ -1,4 +1,4 @@
-Option Strict On
+﻿Option Strict On
 Option Infer On
 
 Public Class FrmPrincipal
@@ -24,9 +24,10 @@ Public Class FrmPrincipal
         btnHorarios.Text = If(Sesion.Rol = "Instructor", "Mis horarios", "Horarios")
         btnReportes.Visible = Sesion.Rol = "Administrador" OrElse Sesion.Rol = "Recepcionista" OrElse
                               Sesion.Rol = "Instructor" OrElse Sesion.Rol = "Socio"
+        btnPortalSocio.Visible = Sesion.Rol="Administrador" OrElse Sesion.Rol="Recepcionista" OrElse Sesion.Rol="Socio"
         lblAviso.Text = ""
         If Sesion.Rol = "Socio" Then
-            lblAviso.Text = "El portal del socio todavía está pendiente."
+            lblAviso.Text = "Consulta tus membresías, pagos y estado de cuenta en el portal."
         End If
     End Sub
 
@@ -160,5 +161,16 @@ Public Class FrmPrincipal
 
     Private Sub FrmPrincipal_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Sesion.Limpiar()
+    End Sub
+    Private Sub btnPortalSocio_Click(sender As Object,e As EventArgs) Handles btnPortalSocio.Click
+        Try
+            PermisosReportes.Exigir("R05")
+            Using formulario As New frmPortalSocio()
+                formulario.ShowDialog(Me)
+            End Using
+            If Sesion.IdUsuario<=0 Then Close()
+        Catch ex As Exception
+            MostrarError(ex)
+        End Try
     End Sub
 End Class

@@ -61,4 +61,7 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Reportes\Rdlc\*.rdlc" />
+  </ItemGroup>
 </Project>

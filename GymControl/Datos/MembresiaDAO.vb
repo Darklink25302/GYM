@@ -80,7 +80,7 @@ Public Class MembresiaDAO
 
                 Dim sql As String =
                     "SELECT " &
-                    "m.id_membresia, " &
+                    "m.id_membresia, m.id_socio, " &
                     "CONCAT(s.nombres, ' ', s.apellidos) AS socio, " &
                     "tm.nombre AS tipo_membresia, " &
                     "m.fecha_inicio, " &
@@ -93,9 +93,9 @@ Public Class MembresiaDAO
                     "INNER JOIN socios s ON s.id_socio = m.id_socio " &
                     "INNER JOIN tipos_membresia tm " &
                     "ON tm.id_tipo_membresia = m.id_tipo_membresia " &
-                    "LEFT JOIN pagos p ON p.id_membresia = m.id_membresia " &
+                    "LEFT JOIN pagos p ON p.id_membresia = m.id_membresia AND p.anulado=FALSE " &
                     "GROUP BY " &
-                    "m.id_membresia, " &
+                    "m.id_membresia, m.id_socio, " &
                     "s.nombres, s.apellidos, " &
                     "tm.nombre, " &
                     "m.fecha_inicio, " &

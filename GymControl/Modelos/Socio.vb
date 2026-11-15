@@ -10,4 +10,9 @@
     Public Property FechaNacimiento As Date?
     Public Property Activo As Boolean
 
+    Public ReadOnly Property NombreCompleto As String
+        Get
+            Return Nombres & " " & Apellidos
+        End Get
+    End Property
 End Class

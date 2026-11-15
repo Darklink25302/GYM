@@ -1,4 +1,4 @@
-Option Strict On
+﻿Option Strict On
 Option Infer On
 
 Public Class FrmPrincipal
@@ -22,9 +22,12 @@ Public Class FrmPrincipal
         btnSalas.Visible = Sesion.Rol = "Administrador"
         btnHorarios.Visible = Sesion.Rol = "Administrador" OrElse Sesion.Rol = "Instructor"
         btnHorarios.Text = If(Sesion.Rol = "Instructor", "Mis horarios", "Horarios")
+        btnReportes.Visible = Sesion.Rol = "Administrador" OrElse Sesion.Rol = "Recepcionista" OrElse
+                              Sesion.Rol = "Instructor" OrElse Sesion.Rol = "Socio"
+        btnPortalSocio.Visible = Sesion.Rol="Administrador" OrElse Sesion.Rol="Recepcionista" OrElse Sesion.Rol="Socio"
         lblAviso.Text = ""
         If Sesion.Rol = "Socio" Then
-            lblAviso.Text = "El portal del socio todavía está pendiente."
+            lblAviso.Text = "Consulta tus membresías, pagos y estado de cuenta en el portal."
         End If
     End Sub
 
@@ -136,11 +139,38 @@ Public Class FrmPrincipal
         End Try
     End Sub
 
+    Private Sub btnReportes_Click(sender As Object, e As EventArgs) Handles btnReportes.Click
+        Try
+            PermisosMenu.Exigir("Administrador", "Recepcionista", "Instructor", "Socio")
+            Using formulario As New frmCentroReportes()
+                formulario.ShowDialog(Me)
+            End Using
+            If Sesion.IdUsuario <= 0 Then
+                Close()
+                Return
+            End If
+            ActualizarMenu()
+        Catch ex As Exception
+            MostrarError(ex)
+        End Try
+    End Sub
+
     Private Sub btnCerrarSesion_Click(sender As Object, e As EventArgs) Handles btnCerrarSesion.Click
         Close()
     End Sub
 
     Private Sub FrmPrincipal_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Sesion.Limpiar()
+    End Sub
+    Private Sub btnPortalSocio_Click(sender As Object,e As EventArgs) Handles btnPortalSocio.Click
+        Try
+            PermisosReportes.Exigir("R05")
+            Using formulario As New frmPortalSocio()
+                formulario.ShowDialog(Me)
+            End Using
+            If Sesion.IdUsuario<=0 Then Close()
+        Catch ex As Exception
+            MostrarError(ex)
+        End Try
     End Sub
 End Class
